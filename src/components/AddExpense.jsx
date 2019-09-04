@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class AddExpense extends Component {
-  rnder() {
+  render() {
     return "hi";
   }
 }
