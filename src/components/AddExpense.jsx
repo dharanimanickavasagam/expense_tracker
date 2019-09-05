@@ -1,9 +1,13 @@
 import React, { Component } from "react";
+import ExpenseForm from "./expenseForm";
 
 class AddExpense extends Component {
   render() {
-    return "hi";
+
+    return (
+      <ExpenseForm />
+    )
+
   }
 }
-
 export default AddExpense;

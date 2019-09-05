@@ -8,6 +8,23 @@
   pointer-events: none;
 }
 
+h2 { 
+  text-align : center
+}
+
+.flexBorder { 
+  display : flex; 
+  /* justify-content : center;  */
+  flex :"1"; 
+  flex-direction : column;
+  margin-right : 50px;
+  margin-left : -200px; 
+}
+
+.container { 
+  margin :30px
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
