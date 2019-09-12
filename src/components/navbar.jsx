@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import About from "./about";
+import Chart from "./chart";
 import AddExpense from "./addExpense";
 import ExpenseType from "./expenseType";
 import Dashboard from "./dashboard";
@@ -41,8 +41,8 @@ class Navbar extends Component {
               </li>
 
               <li className="nav-item">
-                <Link to={"/about"} className="nav-link">
-                  About
+                <Link to={"/chart"} className="nav-link">
+                  Chart
                 </Link>
               </li>
             </ul>
@@ -52,7 +52,7 @@ class Navbar extends Component {
         <Switch>
           <Route path="/addExpense" component={AddExpense} />
           <Route path="/addExpenseType" component={ExpenseType} />
-          <Route path="/about" component={About} />
+          <Route path="/chart" component={Chart} />
           <Route exact path="/" component={Dashboard} />
           <Route path="/not-found" component={NotFound} />
           <Redirect to="/not-found" component={NotFound} />
