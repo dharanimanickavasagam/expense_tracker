@@ -21,7 +21,9 @@ class ExpenseType extends Component {
     options: ["Primary", "Secondary", "Misc"],
     columns: ["", "ID", "Type", "Need", ""],
     data: [],
-    updateId: ""
+    updateId: "",
+    displayUpdate: false,
+    displayAdd: true
   };
 
   schema = {
@@ -83,7 +85,13 @@ class ExpenseType extends Component {
       need: this.state.newNeed,
       id: this.state.id
     });
-    this.setState({ newName: "", newNeed: "", id: "" });
+    this.setState({
+      newName: "",
+      newNeed: "",
+      id: "",
+      displayUpdate: false,
+      displayAdd: true
+    });
   };
 
   handleEdit = toBeEditedId => {
@@ -93,7 +101,9 @@ class ExpenseType extends Component {
     this.setState({
       id,
       newName: name,
-      newNeed: need
+      newNeed: need,
+      displayUpdate: true,
+      displayAdd: false
     });
   };
 
@@ -102,6 +112,16 @@ class ExpenseType extends Component {
   };
 
   render() {
+    const { displayUpdate, displayAdd } = this.state;
+
+    const updateStyle = displayUpdate
+      ? { margin: "15px" }
+      : { margin: "15px", display: "none" };
+
+    const addStyle = displayAdd
+      ? { margin: "15px" }
+      : { margin: "15px", display: "none" };
+
     return (
       <div className="container">
         <div className="row ">
@@ -129,7 +149,7 @@ class ExpenseType extends Component {
             <div className="buttonContainer">
               <button
                 className="btn btn-primary btn-md"
-                style={{ margin: "15px" }}
+                style={addStyle}
                 onClick={this.handleAdd}
               >
                 Add
@@ -137,7 +157,7 @@ class ExpenseType extends Component {
 
               <button
                 className="btn btn-primary btn-md maskDisplay"
-                style={{ margin: "15px" }}
+                style={updateStyle}
                 onClick={this.handleUpdate}
               >
                 Update
