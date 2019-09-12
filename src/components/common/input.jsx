@@ -12,7 +12,6 @@ const Input = ({labelFor,labelName,inputId,type,onChange, ...rest}) => {
             id={inputId} {...rest}
             onChange={onChange}
            />
-          
         </div>
        
       );

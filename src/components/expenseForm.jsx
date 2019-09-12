@@ -1,87 +1,117 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import Input from "./common/input";
 import Select from "./common/select";
-import Joi from "@hapi/joi"; 
+import Joi from "joi-browser";
+import { connect } from "react-redux";
 
 class ExpenseForm extends Component {
-    
-    state = { 
-        name : "", 
-        expenseTypeOptions : ["Water","Gas","Mobile","Misc","Rent","Food"],
-        type: "",
-        amount : 0,
-        errors : "" 
-    }
+  state = {
+    name: "",
+    type: "",
+    amount: 0,
+    errors: { name: "", type: "", amount: "" }
+  };
 
-    schema = { 
-        name : Joi.string().min(5).required(), 
-        type : Joi.string().required(),
-        amount : Joi.number().required().min(1).max(1000)
-    }
+  schema = {
+    name: Joi.string()
+      .min(5)
+      .required(),
+    type: Joi.string().required(),
+    amount: Joi.number()
+      .required()
+      .min(1)
+      .max(1000)
+  };
 
-    handleExpenseName = (event) => { 
-        this.setState({name : event.target.value}, () => { 
-            console.log(this.state.name);
-        }); 
-    }
+  handleExpenseName = event => {
+    this.setState({ name: event.target.value }, () => {});
+  };
 
-    handleExpenseType = (event) => { 
-        this.setState({type : event.target.value}, () => { 
-            console.log(this.state.type);
-        }); 
-    }
-    
-    handleExpenseAmount = (event) => { 
-        this.setState({amount : event.target.value}, () => { 
-            console.log(this.state.amount);
-        }); 
-    }
+  handleExpenseType = event => {
+    this.setState({ type: event.target.value }, () => {});
+  };
 
-    validate = () => { 
-        const options ={abortEarly : false}; 
-        const {error} = Joi.validate({name : this.state.name,type : this.state.type, amount : this.state.amount},
-                        this.schema,options); 
+  handleExpenseAmount = event => {
+    this.setState({ amount: event.target.value }, () => {});
+  };
 
-        //no error, set disabled to false by returning null
-        if(!error) return null; 
-        
-        //errors
-        const errors = {};
-        for (let item of error.details) {
-            errors[item.path[0]] = item.message;
-        } 
-        return errors;
+  validate = () => {
+    const options = { abortEarly: false };
+    const res = Joi.validate(
+      {
+        name: this.state.name,
+        type: this.state.type,
+        amount: this.state.amount
+      },
+      this.schema,
+      options
+    );
+  };
 
-    }
+  handleSubmit = event => {
+    event.preventDefault();
+    const errors = this.validate();
 
-    handleSubmit = (event) => { 
-        event.preventDefault(); 
-        const errors = this.validate();
-        
-        this.setState({errors : errors || {} });
-        if (errors) return;      
-    }
+    this.setState({ errors: errors || {} });
+    if (errors) return;
+  };
 
-    render() { 
-        const {errors} = this.state; 
-        console.log(errors);
-    
-     return ( 
-        <form onSubmit={this.handleSubmit}>
-            <Input labelFor="expenseName" labelName="Expense Name" inputId="expenseName" type="text"
-               onChange={this.handleExpenseName} error={errors} placeholder="Expense description"/>
+  render() {
+    const { errors } = this.state;
 
-            <Select labelFor="expenseType" labelName="Expense Type" selectId="expenseType" 
-                onChange={this.handleExpenseType} options={this.state.expenseTypeOptions}/>
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <Input
+          labelFor="expenseName"
+          labelName="Expense Name"
+          inputId="expenseName"
+          type="text"
+          onChange={this.handleExpenseName}
+          error={errors}
+          placeholder="Expense description"
+        />
 
-            <Input labelFor="expenseAmount" labelName="Amount" inputId="expenseAmount" type="number"
-                max="1000" min="1" step="0.5" onChange={this.handleExpenseAmount} placeholder="Expense Amount" />
+        <Select
+          labelFor="expenseType"
+          labelName="Expense Type"
+          selectId="expenseType"
+          onChange={this.handleExpenseType}
+          options={this.props.expenseTypes}
+        />
 
-            <button type="submit" disabled={this.validate()}  style={{marginTop : "15px", marginLeft: "15px"}} 
-                className="btn btn-primary">Submit</button>
-        </form> 
-        );
-    }
+        <Input
+          labelFor="expenseAmount"
+          labelName="Amount"
+          inputId="expenseAmount"
+          type="number"
+          max="1000"
+          min="1"
+          step="0.5"
+          onChange={this.handleExpenseAmount}
+          placeholder="Expense Amount"
+        />
+
+        <button
+          type="submit"
+          disabled={this.validate()}
+          style={{ marginTop: "15px", marginLeft: "15px" }}
+          className="btn btn-primary"
+        >
+          Submit
+        </button>
+      </form>
+    );
+  }
 }
- 
-export default ExpenseForm;
+
+const mapStateToProps = state => {
+  const expenseTypes = state.expenseType.expenseTypes;
+  const filteredExpenseTypeNames = expenseTypes.map(
+    expenseType => expenseType.name
+  );
+  return {
+    expenseTypes: filteredExpenseTypeNames
+  };
+};
+
+export default connect(mapStateToProps)(ExpenseForm);
