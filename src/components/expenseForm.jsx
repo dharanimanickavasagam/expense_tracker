@@ -61,44 +61,48 @@ class ExpenseForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <Input
-          labelFor="expenseName"
-          labelName="Expense Name"
-          inputId="expenseName"
-          type="text"
-          onChange={this.handleExpenseName}
-          error={errors}
-          placeholder="Expense description"
-        />
+       
+            <div className=" flexExpenseForm">
+              <Input
+                labelFor="expenseName"
+                labelName="Expense Name"
+                inputId="expenseName"
+                type="text"
+                onChange={this.handleExpenseName}
+                error={errors}
+                placeholder="Expense description"
+              />
+             
 
-        <Select
-          labelFor="expenseType"
-          labelName="Expense Type"
-          selectId="expenseType"
-          onChange={this.handleExpenseType}
-          options={this.props.expenseTypes}
-        />
+              <Select
+                labelFor="expenseType"
+                labelName="Expense Type"
+                selectId="expenseType"
+                onChange={this.handleExpenseType}
+                options={this.props.expenseTypes}
+              />
 
-        <Input
-          labelFor="expenseAmount"
-          labelName="Amount"
-          inputId="expenseAmount"
-          type="number"
-          max="1000"
-          min="1"
-          step="0.5"
-          onChange={this.handleExpenseAmount}
-          placeholder="Expense Amount"
-        />
+              <Input
+                labelFor="expenseAmount"
+                labelName="Amount"
+                inputId="expenseAmount"
+                type="number"
+                max="1000"
+                min="1"
+                step="0.5"
+                onChange={this.handleExpenseAmount}
+                placeholder="Expense Amount"
+              />
 
-        <button
-          type="submit"
-          disabled={this.validate()}
-          style={{ marginTop: "15px", marginLeft: "15px" }}
-          className="btn btn-primary"
-        >
-          Submit
-        </button>
+              <button
+                type="submit"
+                disabled={this.validate()}
+                style={{ marginTop: "15px", marginLeft: "15px" }}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
+        </div>
       </form>
     );
   }
