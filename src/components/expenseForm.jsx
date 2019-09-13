@@ -1,14 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import Input from "./common/input";
 import Select from "./common/select";
 import Joi from "joi-browser";
 import { connect } from "react-redux";
+import TextArea from "./common/textArea";
+import DateSelector from "./common/date";
+import moment from "moment";
 
 class ExpenseForm extends Component {
   state = {
+    date: "",
     name: "",
     type: "",
     amount: 0,
+    notes: "",
     errors: { name: "", type: "", amount: "" }
   };
 
@@ -23,16 +28,24 @@ class ExpenseForm extends Component {
       .max(1000)
   };
 
+  handleDate = date => {
+    this.setState({ date: moment(date).format("MM/DD/YYYY") });
+  };
+
   handleExpenseName = event => {
-    this.setState({ name: event.target.value }, () => {});
+    this.setState({ name: event.target.value });
   };
 
   handleExpenseType = event => {
-    this.setState({ type: event.target.value }, () => {});
+    this.setState({ type: event.target.value });
   };
 
   handleExpenseAmount = event => {
-    this.setState({ amount: event.target.value }, () => {});
+    this.setState({ amount: event.target.value });
+  };
+
+  handleExpenseNotes = event => {
+    this.setState({ notes: event.target.value });
   };
 
   validate = () => {
@@ -61,47 +74,62 @@ class ExpenseForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-       
-            <div className=" flexExpenseForm">
-              <Input
-                labelFor="expenseName"
-                labelName="Expense Name"
-                inputId="expenseName"
-                type="text"
-                onChange={this.handleExpenseName}
-                error={errors}
-                placeholder="Expense description"
-              />
-             
+        <div className=" flexExpenseForm">
+          <DateSelector
+            labelFor="expenseDate"
+            labelName="Date"
+            inputId="expenseDate"
+            error={errors}
+            onChange={this.handleDate}
+          />
 
-              <Select
-                labelFor="expenseType"
-                labelName="Expense Type"
-                selectId="expenseType"
-                onChange={this.handleExpenseType}
-                options={this.props.expenseTypes}
-              />
+          <Input
+            labelFor="expenseName"
+            labelName="Expense Name"
+            inputId="expenseName"
+            type="text"
+            onChange={this.handleExpenseName}
+            error={errors}
+            placeholder="Description"
+          />
 
-              <Input
-                labelFor="expenseAmount"
-                labelName="Amount"
-                inputId="expenseAmount"
-                type="number"
-                max="1000"
-                min="1"
-                step="0.5"
-                onChange={this.handleExpenseAmount}
-                placeholder="Expense Amount"
-              />
+          <Select
+            labelFor="expenseType"
+            labelName="Expense Type"
+            selectId="expenseType"
+            onChange={this.handleExpenseType}
+            options={this.props.expenseTypes}
+          />
 
-              <button
-                type="submit"
-                disabled={this.validate()}
-                style={{ marginTop: "15px", marginLeft: "15px" }}
-                className="btn btn-primary"
-              >
-                Submit
-              </button>
+          <Input
+            labelFor="expenseAmount"
+            labelName="Amount"
+            inputId="expenseAmount"
+            type="number"
+            max="1000"
+            min="1"
+            step="0.5"
+            onChange={this.handleExpenseAmount}
+            placeholder="$"
+          />
+
+          <TextArea
+            labelFor="expenseNote"
+            labelName="Notes"
+            inputId="expenseNote"
+            onChange={this.handleExpenseNotes}
+            error={errors}
+            placeholder="Notes"
+          />
+
+          <button
+            type="submit"
+            disabled={this.validate()}
+            style={{ marginTop: "15px", marginLeft: "15px" }}
+            className="btn btn-primary"
+          >
+            Submit
+          </button>
         </div>
       </form>
     );
