@@ -23,9 +23,6 @@ const DateSelector = ({ labelFor, labelName, inputId, onChange, ...rest }) => {
         id={inputId}
         selected={startDate}
         onChange={date => handleChangeDate(date)}
-        // onChange={date => {
-        //   onChange(setStartDate(date));
-        // }}
       />
     </div>
   );

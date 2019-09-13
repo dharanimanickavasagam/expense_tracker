@@ -1,6 +1,14 @@
 import React from "react";
 
-const Input = ({ labelFor, labelName, inputId, type, onChange, ...rest }) => {
+const Input = ({
+  labelFor,
+  labelName,
+
+  inputId,
+  type,
+  onChange,
+  ...rest
+}) => {
   //const errored = error !== " " ? error : false;
   //{errored && <div className="alert alert-danger">{errored}</div>}
   //console.log(errored)
