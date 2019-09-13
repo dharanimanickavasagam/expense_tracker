@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import "bootstrap/dist/css/bootstrap.css";
 import { BrowserRouter } from "react-router-dom";
 import "font-awesome/css/font-awesome.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 ReactDOM.render(
   <BrowserRouter>
