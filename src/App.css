@@ -8,10 +8,6 @@
     pointer-events: none;
 }
 
-h2 {
-    text-align: center
-}
-
 .flexBorder {
     display: flex;
     /* justify-content : center;  */
@@ -67,10 +63,21 @@ h2 {
     cursor: pointer;
 }
 
+.card {
+    border: 0px !important;
+    max-height: 100%
+}
 
-/* .flexExpenseForm {
+
+/* generic flex container by column */
+
+.flexContainer {
     display: flex;
-    flex: 1;
     flex-direction: column;
-    align-items: center
-} */
+    justify-content: center;
+    align-items: center;
+}
+
+.formInput {
+    margin-top: 15px
+}

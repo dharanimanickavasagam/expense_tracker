@@ -6,12 +6,15 @@ import { connect } from "react-redux";
 import TextArea from "./common/textArea";
 import DateSelector from "./common/date";
 import moment from "moment";
+import { Card, Button } from "react-bootstrap";
 
 class ExpenseForm extends Component {
   state = {
     date: "",
     name: "",
     type: "",
+    expenseModes: ["Fixed", "Variable"],
+    mode: "",
     amount: 0,
     notes: "",
     errors: { name: "", type: "", amount: "" }
@@ -38,6 +41,10 @@ class ExpenseForm extends Component {
 
   handleExpenseType = event => {
     this.setState({ type: event.target.value });
+  };
+
+  handleExpenseMode = event => {
+    this.setState({ mode: event.target.value });
   };
 
   handleExpenseAmount = event => {
@@ -69,69 +76,121 @@ class ExpenseForm extends Component {
     if (errors) return;
   };
 
+  handleClearData = () => {
+    this.setState({
+      name: "",
+      type: "",
+      amount: 0,
+      mode: "",
+      date: "",
+      notes: ""
+    });
+  };
+
   render() {
     const { errors } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className=" flexExpenseForm">
-          <DateSelector
-            labelFor="expenseDate"
-            labelName="Date"
-            inputId="expenseDate"
-            error={errors}
-            onChange={this.handleDate}
-          />
+      <div className="flexContainer">
+        <Card className="card" style={{ width: "50%" }}>
+          <Card.Body>
+            <Card.Title>Add Expense</Card.Title>
+            <Card.Text>
+              Track your expenses like a pro! You now have a way to find the
+              recurring and variable expenses.
+            </Card.Text>
 
-          <Input
-            labelFor="expenseName"
-            labelName="Expense Name"
-            inputId="expenseName"
-            type="text"
-            onChange={this.handleExpenseName}
-            error={errors}
-            placeholder="Description"
-          />
+            <Card.Text>
+              <Card.Text>
+                <DateSelector
+                  value={this.state.date}
+                  labelFor="expenseDate"
+                  labelName="Date"
+                  inputId="expenseDate"
+                  error={errors}
+                  onChange={this.handleDate}
+                />
+              </Card.Text>
 
-          <Select
-            labelFor="expenseType"
-            labelName="Expense Type"
-            selectId="expenseType"
-            onChange={this.handleExpenseType}
-            options={this.props.expenseTypes}
-          />
+              <Card.Text>
+                <Input
+                  value={this.state.name}
+                  labelFor="expenseName"
+                  labelName="Expense Name"
+                  inputId="expenseName"
+                  type="text"
+                  onChange={this.handleExpenseName}
+                  error={errors}
+                  placeholder="Description"
+                />
+              </Card.Text>
 
-          <Input
-            labelFor="expenseAmount"
-            labelName="Amount"
-            inputId="expenseAmount"
-            type="number"
-            max="1000"
-            min="1"
-            step="0.5"
-            onChange={this.handleExpenseAmount}
-            placeholder="$"
-          />
+              <Card.Text>
+                <Select
+                  value={this.state.type}
+                  labelFor="expenseType"
+                  labelName="Expense Type"
+                  selectId="expenseType"
+                  onChange={this.handleExpenseType}
+                  options={this.props.expenseTypes}
+                />
+              </Card.Text>
+              <Card.Text>
+                <Select
+                  value={this.state.mode}
+                  labelFor="expenseMode"
+                  labelName="Expense Mode"
+                  selectId="expenseMode"
+                  onChange={this.handleExpenseMode}
+                  options={this.state.expenseModes}
+                />
+              </Card.Text>
 
-          <TextArea
-            labelFor="expenseNote"
-            labelName="Notes"
-            inputId="expenseNote"
-            onChange={this.handleExpenseNotes}
-            error={errors}
-            placeholder="Notes"
-          />
+              <Card.Text>
+                <Input
+                  value={this.state.amount}
+                  labelFor="expenseAmount"
+                  labelName="Amount"
+                  inputId="expenseAmount"
+                  type="number"
+                  max="1000"
+                  min="1"
+                  step="0.5"
+                  onChange={this.handleExpenseAmount}
+                  placeholder="$"
+                />
+              </Card.Text>
+              <Card.Text>
+                <TextArea
+                  value={this.state.notes}
+                  labelFor="expenseNote"
+                  labelName="Notes"
+                  inputId="expenseNote"
+                  onChange={this.handleExpenseNotes}
+                  error={errors}
+                  placeholder="Notes"
+                />
+              </Card.Text>
+              <button
+                type="submit"
+                disabled={this.validate()}
+                style={{ marginTop: "15px", marginLeft: "15px" }}
+                className="btn btn-primary"
+              >
+                Submit
+              </button>
 
-          <button
-            type="submit"
-            disabled={this.validate()}
-            style={{ marginTop: "15px", marginLeft: "15px" }}
-            className="btn btn-primary"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+              <button
+                style={{ marginTop: "15px", marginLeft: "15px" }}
+                className="btn btn-primary"
+                onClick={this.handleClearData}
+              >
+                Clear
+              </button>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </div>
     );
   }
 }
