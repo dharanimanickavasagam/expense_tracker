@@ -4,6 +4,7 @@
     "private": true,
     "author": "Dharani Manickavasagam",
     "dependencies": {
+        "@material-ui/core": "^4.4.2",
         "babel-core": "^6.26.3",
         "babel-loader": "^8.0.6",
         "bootstrap": "^4.3.1",
@@ -28,7 +29,8 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "mock:api": "json-server --watch api/db.json --port 4000"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -49,6 +51,7 @@
         "babel-jest": "^24.9.0",
         "babel-preset-env": "^1.7.0",
         "babel-preset-react": "^6.24.1",
+        "prettier": "1.18.2",
         "react-test-renderer": "^16.9.0"
     }
 }
