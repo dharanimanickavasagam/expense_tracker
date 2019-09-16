@@ -1,9 +1,19 @@
 {
   "expenseTypes": [
     {
-      "name": "Water",
+      "name": "Food Edits",
       "need": "Primary",
-      "id": 2
+      "id": 1
+    },
+    {
+      "name": "Shelter",
+      "need": "Primary",
+      "id": 3
+    },
+    {
+      "name": "Ads",
+      "need": "Primary",
+      "id": 4
     }
   ]
 }

@@ -58,12 +58,12 @@ class ExpenseType extends Component {
 
 	componentDidMount = () => {
 		this.getTableData();
-		this.getData();
 	};
 
 	componentDidUpdate = prevProps => {
 		if (this.props.expenseTypes !== prevProps.expenseTypes) {
 			this.getTableData();
+			this.getData();
 		}
 	};
 

@@ -3,3 +3,4 @@ coverage
 .vscode/settings.json
 yarn-error.log
 api/seed.json
+api/db.json
