@@ -1,5 +1,5 @@
 {
-<<<<<<< HEAD
+
   "expenseTypes": [{
       "name": "Grocery",
       "need": "Primary",
@@ -71,38 +71,6 @@
       "amount": "12",
       "notes": "fresh expense ",
       "id": 8
-=======
-  "expenseTypes": [
-    {
-      "id": 1,
-      "name": "Clothing",
-      "need": "Primary"
-    },
-    {
-      "id": 2,
-      "name": "Grocery",
-      "need": "Primary"
-    },
-    {
-      "id": 3,
-      "name": "Food",
-      "need": "Primary"
-    },
-    {
-      "id": 4,
-      "name": "Shelter",
-      "need": "Primary"
-    },
-    {
-      "id": 5,
-      "name": "Movie",
-      "need": "Secondary"
-    },
-    {
-      "name": "zdkvjfkv",
-      "need": "szkdfn",
-      "id": 6
->>>>>>> master
     }
-  ]
-}
+ ]
+
