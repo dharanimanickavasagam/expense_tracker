@@ -1,6 +1,5 @@
 {
-  "expenseTypes": [
-    {
+  "expenseTypes": [{
       "name": "Grocery",
       "need": "Primary",
       "id": 1
@@ -36,8 +35,7 @@
       "id": 7
     }
   ],
-  "expenses": [
-    {
+  "expenses": [{
       "id": 1,
       "date": "09/15/2019",
       "description": "Rent",
@@ -92,4 +90,3 @@
       "id": 10
     }
   ]
-}

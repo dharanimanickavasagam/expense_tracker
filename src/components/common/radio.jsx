@@ -17,6 +17,8 @@ const Radio = ({
 					<input
 						type={type}
 						id={option}
+						onChange={onChange}
+						autoComplete="off"
 						name={inputId}
 						value={option}
 						{...rest}
