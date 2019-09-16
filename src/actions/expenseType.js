@@ -39,7 +39,6 @@ export const addExpenseType = payload => {
 };
 
 export const updateExpenseType = payload => {
-  console.log("Action", payload);
   return function (dispatch) {
     return updateExpenseTypeService(payload)
       .then(

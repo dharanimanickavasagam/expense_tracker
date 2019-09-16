@@ -52,10 +52,6 @@ class ExpenseType extends Component {
 		this.setState({ data });
 	};
 
-	getData = () => {
-		getExpenseType();
-	};
-
 	componentDidMount = () => {
 		this.getTableData();
 	};
@@ -63,7 +59,7 @@ class ExpenseType extends Component {
 	componentDidUpdate = prevProps => {
 		if (this.props.expenseTypes !== prevProps.expenseTypes) {
 			this.getTableData();
-			this.getData();
+			getExpenseType();
 		}
 	};
 
