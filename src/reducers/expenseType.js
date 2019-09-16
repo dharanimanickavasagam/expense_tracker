@@ -4,6 +4,7 @@ import {
   UPDATE_EXPENSE_TYPE,
   DELETE_EXPENSE_TYPE
 } from "../constants/constants";
+import _ from "lodash";
 
 
 //pure function
@@ -14,9 +15,19 @@ const initialState = {
 const expenseType = (state = initialState, action) => {
   switch (action.type) {
     case GET_EXPENSE_TYPE: {
-      return Object.assign({}, state, {
-        expenseTypes: state.expenseTypes.concat(action.payload)
-      });
+
+      if (_.isEqual(action.payload.sort(), state.expenseTypes.sort())) {
+        return Object.assign({}, state, {
+          expenseTypes: state.expenseTypes
+        });
+      } else {
+        return Object.assign({}, state, {
+          expenseTypes: state.expenseTypes.concat(action.payload)
+        });
+      }
+
+
+
     }
     case ADD_EXPENSE_TYPE: {
       //gets the latest id
