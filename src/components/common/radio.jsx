@@ -10,14 +10,15 @@ const Radio = ({
 	...rest
 }) => {
 	return (
-		<div className="col-auto">
+		<div onChange={onChange} className="col-auto">
 			<label htmlFor={labelFor}>{labelName}</label>
 			{options.map(option => (
 				<div>
 					<input
 						type={type}
-						id={inputId}
+						id={option}
 						onChange={onChange}
+						autoComplete="off"
 						name={inputId}
 						value={option}
 						{...rest}

@@ -4,18 +4,34 @@ import {
     UPDATE_EXPENSE,
     DELETE_EXPENSE
 } from "../constants/constants";
+import {
+    getExpenseService,
+    addExpenseService
+} from "../services/expenseService";
 
 
-export const getExpense = payload => {
-    return {
-        type: GET_EXPENSE,
-        payload
+export const getExpense = () => {
+    return function (dispatch) {
+        return getExpenseService()
+            .then(response => response.data)
+            .then(data => {
+                dispatch({
+                    type: GET_EXPENSE,
+                    payload: data
+                })
+            })
     }
 }
+
 export const addExpense = payload => {
-    return {
-        type: ADD_EXPENSE,
-        payload
+    return function (dispatch) {
+        return addExpenseService(payload)
+            .then(
+                dispatch({
+                    type: ADD_EXPENSE,
+                    payload
+                })
+            )
     }
 }
 

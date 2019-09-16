@@ -25,17 +25,14 @@ const expenseType = (state = initialState, action) => {
           expenseTypes: state.expenseTypes.concat(action.payload)
         });
       }
-
-
-
     }
+
     case ADD_EXPENSE_TYPE: {
       //gets the latest id
       const id = state.expenseTypes.slice(-1)[0].id + 1;
 
       return Object.assign({}, state, {
         expenseTypes: state.expenseTypes.concat({
-
           ...action.payload,
           id
         })
@@ -43,13 +40,12 @@ const expenseType = (state = initialState, action) => {
     }
 
     case UPDATE_EXPENSE_TYPE: {
-      console.log("reducer", action.payload);
+
       const {
         name,
         need,
         id
       } = action.payload;
-      console.log("id in reducer", id);
 
       return {
         ...state,
