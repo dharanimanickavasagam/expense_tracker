@@ -23,10 +23,10 @@
     /* justify-content: space-between; */
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 700px) {
     .flexBorder {
         display: block;
-        flex: 1;
+
     }
 }
 
