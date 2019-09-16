@@ -1,9 +1,13 @@
-import { combineReducers } from "redux"; 
+import {
+  combineReducers
+} from "redux";
 import expenseType from "./expenseType";
+import expense from "./expense";
 
 
 const rootReducer = combineReducers({
-  expenseType : expenseType
+  expenseType: expenseType,
+  expense: expense
 });
 
 
