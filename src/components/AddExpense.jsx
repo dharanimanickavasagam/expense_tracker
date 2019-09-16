@@ -9,7 +9,7 @@ import moment from "moment";
 import { Card } from "react-bootstrap";
 import Radio from "./common/radio";
 import { addExpense } from "../actions/expense";
-import { getExpenseType } from "./../actions/expenseType";
+import { getExpenseType } from "../actions/expenseType";
 
 class AddExpense extends Component {
 	state = {
