@@ -1,7 +1,10 @@
 node_modules
 coverage
 .vscode/settings.json
+<<<<<<< HEAD
 yarn-error.log
 api/seed.json
 api/db.json
 api/db.json
+=======
+>>>>>>> master
