@@ -8,9 +8,10 @@ import {
 	Divider
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import ExpenseForm from "./expenseForm";
+import AddExpense from "./addExpense";
 import AddIncome from "./addIncome";
 import DrawerToggle from "./common/drawerToggle";
+import ExpenseTable from "./expenseTable";
 
 class Dashboard extends Component {
 	state = {
@@ -35,8 +36,8 @@ class Dashboard extends Component {
 		const classes = makeStyles();
 
 		return (
-			<div class="flexRow">
-				<div class="col-2 menuSection">
+			<div className="flexRow">
+				<div className="col-2 menuSection">
 					<div className={classes.root}>
 						<List component="nav" aria-label="main mailbox folders">
 							<ListItem button>
@@ -61,13 +62,13 @@ class Dashboard extends Component {
 						<DrawerToggle
 							open={this.state.expenseDrawToggle}
 							drawToggleFor="expenseDrawToggle"
-							component={"ExpenseForm"}
+							component={"AddExpense"}
 							labelName={"Toggle Expense"}
-							Onclick={this.handleToggle}
+							onClick={this.handleToggle}
 						/>
 
 						<Drawer open={this.state.expenseDrawToggle}>
-							<ExpenseForm />
+							<AddExpense />
 							<Button
 								label="Toggle Drawer"
 								onClick={() => this.handleToggle("expenseDrawToggle")}
@@ -87,7 +88,9 @@ class Dashboard extends Component {
 						</Drawer>
 					</div>
 				</div>
-				<div class="col-auto tableSection">Rest of the code</div>
+				<div className="col-auto tableSection">
+					<ExpenseTable />
+				</div>
 			</div>
 		);
 	}
