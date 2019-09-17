@@ -12,6 +12,7 @@ import AddExpense from "./addExpense";
 import AddIncome from "./addIncome";
 import DrawerToggle from "./common/drawerToggle";
 import ExpenseTable from "./expenseTable";
+import MaterialExpenseTable from "./materialExpenseTable";
 
 class Dashboard extends Component {
 	state = {
@@ -88,8 +89,9 @@ class Dashboard extends Component {
 						</Drawer>
 					</div>
 				</div>
-				<div className="col-auto tableSection">
-					<ExpenseTable />
+				<div className="col-10 tableSection">
+					{/* <ExpenseTable /> */}
+					<MaterialExpenseTable />
 				</div>
 			</div>
 		);

@@ -8,3 +8,8 @@ export const getExpenseService = () => {
 export const addExpenseService = (expense) => {
     return http.post(config.apiEndPoint + "/expenses", expense);
 }
+
+export const deleteExpenseService = (expenseID) => {
+    return http.delete(config.apiEndPoint + "/expenses/" +
+        `${expenseID}`);
+}
