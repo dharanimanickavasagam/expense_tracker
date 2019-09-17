@@ -13,10 +13,10 @@ import moment from "moment";
 
 const MaterialExpenseTable = props => {
 	const data = props.expenses;
-
+	console.log(data);
 	useEffect(() => {
 		const filter = data.map(datum => {
-			const del = _.omit(datum, ["tableData", "id"]);
+			const del = _.omit(datum, ["tableData"]);
 			return del;
 		});
 		setState({ columns, data: filter });
@@ -73,6 +73,7 @@ const MaterialExpenseTable = props => {
 							props.updateExpense(newData);
 						}, 600);
 					}),
+
 				onRowDelete: oldData =>
 					new Promise(resolve => {
 						setTimeout(() => {
@@ -80,6 +81,7 @@ const MaterialExpenseTable = props => {
 							const data = [...state.data];
 							data.splice(data.indexOf(oldData), 1);
 							setState({ ...state, data });
+							console.log("deleteID", oldData.id);
 							props.deleteExpense(oldData.id);
 						}, 600);
 					})
