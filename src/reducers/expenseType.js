@@ -29,7 +29,12 @@ const expenseType = (state = initialState, action) => {
 
     case ADD_EXPENSE_TYPE: {
       //gets the latest id
-      const id = state.expenseTypes.slice(-1)[0].id + 1;
+      let id;
+      if (state.expenseTypes.length === 0) {
+        id = 1;
+      } else {
+        id = state.expenseTypes.slice(-1)[0].id + 1;
+      }
 
       return Object.assign({}, state, {
         expenseTypes: state.expenseTypes.concat({

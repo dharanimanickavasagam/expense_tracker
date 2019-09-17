@@ -16,10 +16,11 @@ const MaterialExpenseTable = props => {
 
 	useEffect(() => {
 		const filter = data.map(datum => {
-			const del = _.omit(datum, ["tableData", "id"]);
+			const del = _.omit(datum, ["tableData"]);
 			return del;
 		});
 		setState({ columns, data: filter });
+		console.log("Updating");
 		getExpense();
 		getExpenseType();
 	}, [data, props.expenses, props.expenseTypes]);
@@ -73,6 +74,7 @@ const MaterialExpenseTable = props => {
 							props.updateExpense(newData);
 						}, 600);
 					}),
+
 				onRowDelete: oldData =>
 					new Promise(resolve => {
 						setTimeout(() => {
