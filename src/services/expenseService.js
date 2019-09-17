@@ -10,6 +10,13 @@ export const addExpenseService = (expense) => {
 }
 
 export const deleteExpenseService = (expenseID) => {
+    console.log("Service", expenseID)
     return http.delete(config.apiEndPoint + "/expenses/" +
         `${expenseID}`);
+}
+
+export const updateExpenseService = (expense) => {
+    const id = expense.id;
+    return http.put(config.apiEndPoint + "/expenses/" +
+        `${id}`, expense);
 }

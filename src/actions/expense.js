@@ -7,7 +7,8 @@ import {
 import {
     getExpenseService,
     addExpenseService,
-    deleteExpenseService
+    deleteExpenseService,
+    updateExpenseService
 } from "../services/expenseService";
 
 
@@ -37,13 +38,19 @@ export const addExpense = payload => {
 }
 
 export const updateExpense = payload => {
-    return {
-        type: UPDATE_EXPENSE,
-        payload
+    return function (dispatch) {
+        return updateExpenseService(payload)
+            .then(
+                dispatch({
+                    type: UPDATE_EXPENSE,
+                    payload
+                })
+            )
     }
 }
 
 export const deleteExpense = payload => {
+    console.log("action", payload)
     return function (dispatch) {
         return deleteExpenseService(payload)
             .then(

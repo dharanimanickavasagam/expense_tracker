@@ -31,10 +31,34 @@ const expense = (state = initialState, action) => {
                 });
 
             case UPDATE_EXPENSE:
-                return null
+                const {
+                    date, description, type, mode, amount, notes, id
+                } = action.payload;
+
+                return {
+                    ...state,
+                    expenses: state.expenses.map((expense) =>
+                        expense.id === id ? {
+                            ...expense,
+                            date,
+                            description,
+                            type,
+                            mode,
+                            amount,
+                            notes,
+                            id
+                        } : expense
+                    )
+                };
 
             case DELETE_EXPENSE:
-                return null
+                const toBeDeletedID = action.payload;
+                return {
+                    ...state,
+                    expenses: state.expenses.filter(
+                        expenseType => expenseType.id !== toBeDeletedID
+                    )
+                };
 
             default:
                 return state;
