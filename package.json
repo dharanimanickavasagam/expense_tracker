@@ -5,6 +5,7 @@
     "author": "Dharani Manickavasagam",
     "dependencies": {
         "@material-ui/core": "^4.4.2",
+        "@material-ui/icons": "^4.4.1",
         "axios": "^0.19.0",
         "babel-core": "^6.26.3",
         "babel-loader": "^8.0.6",
@@ -15,6 +16,7 @@
         "font-awesome": "^4.7.0",
         "joi-browser": "^13.4.0",
         "lodash": "^4.17.15",
+        "material-table": "^1.50.0",
         "moment": "^2.24.0",
         "raf": "^3.4.1",
         "react": "^16.9.0",

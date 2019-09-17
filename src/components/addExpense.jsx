@@ -10,6 +10,9 @@ import { Card } from "react-bootstrap";
 import Radio from "./common/radio";
 import { addExpense } from "../actions/expense";
 import { getExpenseType } from "../actions/expenseType";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import TypoGraphy from "@material-ui/core/Typography";
 
 class AddExpense extends Component {
 	state = {
@@ -116,109 +119,119 @@ class AddExpense extends Component {
 		const { errors } = this.state;
 
 		return (
-			// <div className="flexContainer">
-			<Card className="flexContainer">
-				<Card.Body>
-					<Card.Title>Add Expense</Card.Title>
-					<Card.Text>
-						Track your expenses like a pro! You now have a way to find the
-						recurring and variable expenses.
-					</Card.Text>
+			<>
+				<div>
+					<AppBar color="primary" position="static">
+						<Toolbar>
+							<TypoGraphy variant="title" color="inherit">
+								Add Expense
+							</TypoGraphy>
+						</Toolbar>
+					</AppBar>
+				</div>
 
-					<Card.Text>
-						<DateSelector
-							value={this.state.date}
-							labelFor="expenseDate"
-							labelName="Date"
-							inputId="expenseDate"
-							error={errors}
-							onChange={this.handleDate}
-						/>
-					</Card.Text>
+				<Card className="flexContainer">
+					<Card.Body>
+						<Card.Title>Add Expense Drawer</Card.Title>
+						<Card.Text>
+							Track your expenses like a pro! You now have a way to find the
+							recurring and variable expenses.
+						</Card.Text>
 
-					<Card.Text>
-						<Input
-							value={this.state.name}
-							labelFor="expenseName"
-							labelName="Expense Name"
-							inputId="expenseName"
-							type="text"
-							onChange={this.handleExpenseName}
-							error={errors}
-							placeholder="Description"
-						/>
-					</Card.Text>
+						<Card.Text>
+							<DateSelector
+								value={this.state.date}
+								labelFor="expenseDate"
+								labelName="Date"
+								inputId="expenseDate"
+								error={errors}
+								onChange={this.handleDate}
+							/>
+						</Card.Text>
 
-					<Card.Text>
-						<Select
-							value={this.state.type}
-							labelFor="expenseType"
-							labelName="Expense Type"
-							selectId="expenseType"
-							onChange={this.handleExpenseType}
-							options={this.props.expenseTypes}
-						/>
-					</Card.Text>
+						<Card.Text>
+							<Input
+								value={this.state.name}
+								labelFor="expenseName"
+								labelName="Expense Name"
+								inputId="expenseName"
+								type="text"
+								onChange={this.handleExpenseName}
+								error={errors}
+								placeholder="Description"
+							/>
+						</Card.Text>
 
-					<Card.Text>
-						<Radio
-							type="radio"
-							value={this.state.mode}
-							labelFor="expenseMode"
-							labelName="Expense Mode"
-							inputId="expenseMode"
-							onChange={this.handleExpenseMode}
-							options={this.state.expenseModes}
-						/>
-					</Card.Text>
+						<Card.Text>
+							<Select
+								value={this.state.type}
+								labelFor="expenseType"
+								labelName="Expense Type"
+								selectId="expenseType"
+								onChange={this.handleExpenseType}
+								options={this.props.expenseTypes}
+							/>
+						</Card.Text>
 
-					<Card.Text>
-						<Input
-							value={this.state.amount}
-							labelFor="expenseAmount"
-							labelName="Amount"
-							inputId="expenseAmount"
-							type="number"
-							max="1000"
-							min="1"
-							step="0.5"
-							onChange={this.handleExpenseAmount}
-							placeholder="$"
-						/>
-					</Card.Text>
+						<Card.Text>
+							<Radio
+								type="radio"
+								value={this.state.mode}
+								labelFor="expenseMode"
+								labelName="Expense Mode"
+								inputId="expenseMode"
+								onChange={this.handleExpenseMode}
+								options={this.state.expenseModes}
+							/>
+						</Card.Text>
 
-					<Card.Text>
-						<TextArea
-							value={this.state.notes}
-							labelFor="expenseNote"
-							labelName="Notes"
-							inputId="expenseNote"
-							onChange={this.handleExpenseNotes}
-							error={errors}
-							placeholder="Notes"
-						/>
-					</Card.Text>
+						<Card.Text>
+							<Input
+								value={this.state.amount}
+								labelFor="expenseAmount"
+								labelName="Amount"
+								inputId="expenseAmount"
+								type="number"
+								max="1000"
+								min="1"
+								step="0.5"
+								onChange={this.handleExpenseAmount}
+								placeholder="$"
+							/>
+						</Card.Text>
 
-					<button
-						type="submit"
-						disabled={this.validate()}
-						style={{ marginTop: "15px", marginLeft: "15px" }}
-						className="btn btn-primary"
-						onClick={this.handleAddExpense}
-					>
-						Add Expense
-					</button>
+						<Card.Text>
+							<TextArea
+								value={this.state.notes}
+								labelFor="expenseNote"
+								labelName="Notes"
+								inputId="expenseNote"
+								onChange={this.handleExpenseNotes}
+								error={errors}
+								placeholder="Notes"
+							/>
+						</Card.Text>
 
-					<button
-						style={{ marginTop: "15px", marginLeft: "15px" }}
-						className="btn btn-primary"
-						onClick={this.handleClearData}
-					>
-						Clear
-					</button>
-				</Card.Body>
-			</Card>
-			// </div>
+						<button
+							type="submit"
+							disabled={this.validate()}
+							style={{ marginTop: "15px", marginLeft: "15px" }}
+							className="btn btn-primary"
+							onClick={this.handleAddExpense}
+						>
+							Add Expense
+						</button>
+
+						<button
+							style={{ marginTop: "15px", marginLeft: "15px" }}
+							className="btn btn-primary"
+							onClick={this.handleClearData}
+						>
+							Clear
+						</button>
+					</Card.Body>
+				</Card>
+			</>
 		);
 	}
 }

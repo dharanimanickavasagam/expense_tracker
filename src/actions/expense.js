@@ -6,7 +6,8 @@ import {
 } from "../constants/constants";
 import {
     getExpenseService,
-    addExpenseService
+    addExpenseService,
+    deleteExpenseService
 } from "../services/expenseService";
 
 
@@ -43,8 +44,13 @@ export const updateExpense = payload => {
 }
 
 export const deleteExpense = payload => {
-    return {
-        type: DELETE_EXPENSE,
-        payload
+    return function (dispatch) {
+        return deleteExpenseService(payload)
+            .then(
+                dispatch({
+                    type: DELETE_EXPENSE,
+                    payload
+                })
+            )
     }
 }
