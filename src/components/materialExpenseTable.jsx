@@ -20,6 +20,7 @@ const MaterialExpenseTable = props => {
 			return del;
 		});
 		setState({ columns, data: filter });
+		console.log("Updating");
 		getExpense();
 		getExpenseType();
 	}, [data, props.expenses, props.expenseTypes]);

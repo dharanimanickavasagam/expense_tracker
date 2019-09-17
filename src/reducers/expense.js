@@ -23,30 +23,38 @@ const expense = (state = initialState, action) => {
                     expenses: state.expenses.concat(action.payload)
                 });
             }
-            case ADD_EXPENSE:
+            case ADD_EXPENSE: {
+                let id;
+                if (state.expenses.length === 0) {
+                    id = 1;
+                } else {
+                    id = state.expenses.slice(-1)[0].id + 1;
+                }
+                console.log("id", state.expenses.length)
                 return Object.assign({}, state, {
                     expenses: state.expenses.concat({
-                        ...action.payload
+                        ...action.payload,
+                        id
                     })
                 });
+            }
 
             case UPDATE_EXPENSE:
                 const {
                     date, description, type, mode, amount, notes, id
                 } = action.payload;
-
                 return {
                     ...state,
                     expenses: state.expenses.map((expense) =>
                         expense.id === id ? {
                             ...expense,
+                            id,
                             date,
                             description,
                             type,
                             mode,
                             amount,
-                            notes,
-                            id
+                            notes
                         } : expense
                     )
                 };
