@@ -120,15 +120,13 @@ class AddExpense extends Component {
 
 		return (
 			<>
-				<div>
-					<AppBar color="primary" position="static">
-						<Toolbar>
-							<TypoGraphy variant="title" color="inherit">
-								Add Expense
-							</TypoGraphy>
-						</Toolbar>
-					</AppBar>
-				</div>
+				<AppBar color="primary" position="static">
+					<Toolbar>
+						<TypoGraphy variant="title" color="inherit">
+							Add Expense
+						</TypoGraphy>
+					</Toolbar>
+				</AppBar>
 
 				<Card className="flexContainer">
 					<Card.Body>

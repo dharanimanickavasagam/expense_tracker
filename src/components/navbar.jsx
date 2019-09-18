@@ -5,6 +5,7 @@ import ExpenseType from "./expenseType";
 import Dashboard from "./dashboard";
 import NotFound from "./notFound";
 import { Switch, Redirect, Route, NavLink } from "react-router-dom";
+import AddIncome from "./addIncome";
 
 class Navbar extends Component {
 	render() {
@@ -35,6 +36,12 @@ class Navbar extends Component {
 							</li>
 
 							<li className="nav-item">
+								<NavLink to={"/addIncome"} className="nav-link">
+									Add Income
+								</NavLink>
+							</li>
+
+							<li className="nav-item">
 								<NavLink to={"/addExpenseType"} className="nav-link">
 									Add Expense Type
 								</NavLink>
@@ -51,6 +58,7 @@ class Navbar extends Component {
 
 				<Switch>
 					<Route path="/addExpense" component={AddExpense} />
+					<Route path="/addIncome" component={AddIncome} />
 					<Route path="/addExpenseType" component={ExpenseType} />
 					<Route path="/chart" component={Chart} />
 					<Route exact path="/" component={Dashboard} />
