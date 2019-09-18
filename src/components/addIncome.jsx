@@ -5,6 +5,7 @@ import TypoGraphy from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
@@ -38,7 +39,8 @@ const styles = theme => ({
 		boxShadow: "none !important",
 		backgroundColor: "none !important",
 		borderRadius: "none !important",
-		display: "flex"
+		display: "flex",
+		justifyContent: "left"
 	},
 	textField: {
 		marginLeft: theme.spacing(1),
@@ -55,10 +57,13 @@ const styles = theme => ({
 	buttonGroup: {
 		display: "flex",
 		flexDirection: "row",
-		justifyContent: "space-around",
+		justifyContent: "space-between",
 		marginTop: theme.spacing(5),
 		boxShadow: "none !important",
 		backgroundColor: "none !important"
+	},
+	error: {
+		color: "red"
 	}
 });
 
@@ -69,7 +74,9 @@ class AddIncome extends Component {
 		income: "",
 		standard: false,
 		modalToggle: false,
-		notes: ""
+		notes: "",
+		payerError: false,
+		incomeError: false
 	};
 
 	getDate() {
@@ -103,11 +110,31 @@ class AddIncome extends Component {
 	};
 
 	handleClick = () => {
+		if (!this.state.payer) {
+			this.setState({ payerError: true });
+			return;
+		} else {
+			this.setState({ payerError: false });
+		}
+
+		if (!this.state.income) {
+			this.setState({ incomeError: true });
+			return;
+		} else {
+			this.setState({ incomeError: false });
+		}
 		this.setState({ modalToggle: true });
 	};
 
 	handleClear = () => {
-		this.setState({ payer: "", income: "", standard: false, notes: "" });
+		this.setState({
+			payer: "",
+			income: "",
+			standard: false,
+			notes: "",
+			incomeError: false,
+			payerError: false
+		});
 	};
 
 	render() {
@@ -167,12 +194,16 @@ class AddIncome extends Component {
 										value={this.state.payer}
 										onChange={this.handlePayer}
 										label="Payer"
+										required
 										placeholder="Payer"
 										margin="normal"
 										InputLabelProps={{
 											shrink: true
 										}}
 									/>
+									<FormHelperText className={classes.error}>
+										{this.state.payerError && "Required"}
+									</FormHelperText>
 								</FormControl>
 								<FormControl>
 									<TextField
@@ -190,6 +221,9 @@ class AddIncome extends Component {
 										}}
 										margin="normal"
 									/>
+									<FormHelperText className={classes.error}>
+										{this.state.incomeError && "Required"}
+									</FormHelperText>
 								</FormControl>
 								<FormControlLabel
 									className={classes.checkBox}
@@ -228,6 +262,14 @@ class AddIncome extends Component {
 								</Grid>
 							</CardContent>
 						</Card>
+
+						<DialogComponent
+							modalToggle={this.state.modalToggle}
+							handleClose={this.handleClose}
+							dialogTitle="Income Added Successfully"
+							dialogContentText="Click OK to add new income if any"
+							buttonText="OK"
+						/>
 
 						<DialogComponent
 							modalToggle={this.state.modalToggle}

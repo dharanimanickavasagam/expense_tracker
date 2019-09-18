@@ -31,19 +31,19 @@ class Navbar extends Component {
 						<ul className="navbar-nav mr-auto">
 							<li className="nav-item">
 								<NavLink to={"/addExpense"} className="nav-link">
-									Add Expense <span className="sr-only">(current)</span>
+									Expense <span className="sr-only">(current)</span>
 								</NavLink>
 							</li>
 
 							<li className="nav-item">
 								<NavLink to={"/addIncome"} className="nav-link">
-									Add Income
+									Income
 								</NavLink>
 							</li>
 
 							<li className="nav-item">
 								<NavLink to={"/addExpenseType"} className="nav-link">
-									Add Expense Type
+									Expense Type
 								</NavLink>
 							</li>
 

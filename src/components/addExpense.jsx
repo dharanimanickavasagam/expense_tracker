@@ -119,7 +119,7 @@ class AddExpense extends Component {
 		const { errors } = this.state;
 
 		return (
-			<>
+			<div style={{ flexGrow: 1 }}>
 				<AppBar color="primary" position="static">
 					<Toolbar>
 						<TypoGraphy variant="title" color="inherit">
@@ -229,7 +229,7 @@ class AddExpense extends Component {
 						</button>
 					</Card.Body>
 				</Card>
-			</>
+			</div>
 		);
 	}
 }
