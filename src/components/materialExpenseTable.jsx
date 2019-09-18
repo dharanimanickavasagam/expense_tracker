@@ -13,7 +13,7 @@ import moment from "moment";
 
 const MaterialExpenseTable = props => {
 	const data = props.expenses;
-	console.log(data);
+
 	useEffect(() => {
 		const filter = data.map(datum => {
 			const del = _.omit(datum, ["tableData"]);

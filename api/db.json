@@ -1,0 +1,47 @@
+{
+  "expenseTypes": [
+    {
+      "name": "Food",
+      "need": "Primary",
+      "id": 1
+    },
+    {
+      "name": "Water",
+      "need": "Primary",
+      "id": 2
+    },
+    {
+      "name": "Shelter",
+      "need": "Primary",
+      "id": 3
+    },
+    {
+      "name": "Grocery",
+      "need": "Primary",
+      "id": 4
+    }
+  ],
+  "expenses": [
+    {
+      "date": "09/01/2019",
+      "description": "Walmart ",
+      "type": "3",
+      "mode": "0",
+      "amount": "23",
+      "notes": "just like that",
+      "tableData": {
+        "id": 0
+      },
+      "id": 1
+    },
+    {
+      "date": "09/18/2019",
+      "description": "Rent",
+      "type": "Shelter",
+      "mode": "Fixed",
+      "amount": "990",
+      "notes": "Monthly rent ",
+      "id": 2
+    }
+  ]
+}

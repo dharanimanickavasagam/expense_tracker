@@ -7,12 +7,33 @@ import {
 	ListItemText,
 	Divider
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import AddExpense from "./addExpense";
 import AddIncome from "./addIncome";
 import DrawerToggle from "./common/drawerToggle";
-import ExpenseTable from "./expenseTable";
 import MaterialExpenseTable from "./materialExpenseTable";
+import styled from "styled-components";
+
+const styles = theme => ({
+	root: {
+		width: "100%",
+		maxWidth: 360,
+		backgroundColor: theme.palette.background.paper
+	},
+	drawer: {
+		color: "red",
+		right: "30%"
+	}
+});
+
+// & > div {
+// 	right: 65%;
+// }
+const StyledDrawer = styled(Drawer)`
+	.MuiDrawer-paperAnchorLeft {
+		right: 70%;
+	}
+`;
 
 class Dashboard extends Component {
 	state = {
@@ -20,22 +41,13 @@ class Dashboard extends Component {
 		incomeDrawToggle: false
 	};
 
-	makeStyles = makeStyles(theme => ({
-		root: {
-			width: "100%",
-			maxWidth: 360,
-			backgroundColor: theme.palette.background.paper
-		}
-	}));
-
 	handleToggle = drawChange => {
 		const stateToChange = !this.state[drawChange];
 		this.setState({ [drawChange]: stateToChange });
 	};
 
 	render() {
-		const classes = makeStyles();
-
+		const { classes } = this.props;
 		return (
 			<div className="flexRow">
 				<div className="col-2 menuSection">
@@ -61,6 +73,7 @@ class Dashboard extends Component {
 						<Divider />
 
 						<DrawerToggle
+							className={classes.drawer}
 							open={this.state.expenseDrawToggle}
 							drawToggleFor="expenseDrawToggle"
 							component={"AddExpense"}
@@ -78,7 +91,7 @@ class Dashboard extends Component {
 							</Button>
 						</Drawer>
 
-						<Drawer open={this.state.incomeDrawToggle}>
+						<StyledDrawer open={this.state.incomeDrawToggle}>
 							<AddIncome />
 							<Button
 								label="Toggle Income"
@@ -86,7 +99,7 @@ class Dashboard extends Component {
 							>
 								Close
 							</Button>
-						</Drawer>
+						</StyledDrawer>
 					</div>
 				</div>
 				<div className="col-10 tableSection">
@@ -98,4 +111,4 @@ class Dashboard extends Component {
 	}
 }
 
-export default Dashboard;
+export default withStyles(styles)(Dashboard);
