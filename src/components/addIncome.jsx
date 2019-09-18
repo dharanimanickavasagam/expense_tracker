@@ -20,11 +20,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogComponent from "../components/common/dialogComponent";
 
 const styles = theme => ({
 	root: {
@@ -233,19 +229,13 @@ class AddIncome extends Component {
 							</CardContent>
 						</Card>
 
-						<Dialog open={this.state.modalToggle} onClose={this.handleClose}>
-							<DialogTitle>Income Added Successfully</DialogTitle>
-							<DialogContent>
-								<DialogContentText>
-									Click OK to add new income if any
-								</DialogContentText>
-							</DialogContent>
-							<DialogActions>
-								<Button color="primary" onClick={this.handleClose}>
-									OK
-								</Button>
-							</DialogActions>
-						</Dialog>
+						<DialogComponent
+							modalToggle={this.state.modalToggle}
+							handleClose={this.handleClose}
+							dialogTitle="Income Added Successfully"
+							dialogContentText="Click OK to add new income if any"
+							buttonText="OK"
+						/>
 					</Grid>
 				</Grid>
 			</div>
