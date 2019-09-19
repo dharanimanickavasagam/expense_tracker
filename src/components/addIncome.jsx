@@ -299,16 +299,8 @@ class AddIncome extends Component {
 						<DialogComponent
 							modalToggle={this.state.modalToggle}
 							handleClose={this.handleClose}
-							dialogTitle="Income Added Successfully"
-							dialogContentText="Click OK to add new income if any"
-							buttonText="OK"
-						/>
-
-						<DialogComponent
-							modalToggle={this.state.modalToggle}
-							handleClose={this.handleClose}
-							dialogTitle="Income Added Successfully"
-							dialogContentText="Click OK to add new income if any"
+							dialogTitle="Success"
+							dialogContentText="Income added successfully"
 							buttonText="OK"
 						/>
 					</Grid>
