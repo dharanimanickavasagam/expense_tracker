@@ -22,6 +22,8 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import DialogComponent from "../components/common/dialogComponent";
+import Joi from "joi-browser";
+import _ from "lodash";
 
 const styles = theme => ({
 	root: {
@@ -42,25 +44,24 @@ const styles = theme => ({
 		display: "flex",
 		justifyContent: "left"
 	},
-	textField: {
-		marginLeft: theme.spacing(1),
-		marginRight: theme.spacing(1),
-		width: 200
-	},
 	formControl: {
 		display: "block"
 	},
 	checkBox: {
-		display: "block",
-		marginTop: theme.spacing(5)
+		display: "block"
 	},
 	buttonGroup: {
 		display: "flex",
 		flexDirection: "row",
-		justifyContent: "space-between",
-		marginTop: theme.spacing(5),
+		justifyContent: "space-between !important",
+		margin: theme.spacing(2),
 		boxShadow: "none !important",
 		backgroundColor: "none !important"
+	},
+	button: {
+		display: "flex",
+		justifyContent: "space-around",
+		margin: theme.spacing(5)
 	},
 	error: {
 		color: "red"
@@ -75,14 +76,48 @@ class AddIncome extends Component {
 		standard: false,
 		modalToggle: false,
 		notes: "",
-		payerError: false,
-		incomeError: false
+		errors: {}
+	};
+
+	schema = {
+		payer: Joi.string()
+			.required()
+			.min(2),
+		income: Joi.number().required()
+	};
+
+	validateSchema = () => {
+		const options = { abortEarly: false };
+		const { error } = Joi.validate(
+			{
+				payer: this.state.payer,
+				income: this.state.income
+			},
+			this.schema,
+			options
+		);
+
+		if (!error) {
+			this.setState({ modalToggle: true });
+			return;
+		}
+		const errors = { ...this.state.errors };
+
+		error.details.map(errorDetails => {
+			const errorState = errorDetails.message.match(/"(.*?)"/);
+			errors[errorState[1]] = errorDetails.message;
+			this.setState({ errors });
+			return errorDetails.message;
+		});
 	};
 
 	getDate() {
 		const date = Date.now();
 		return moment(date).format("MM/DD/YYYY");
 	}
+	handleFocus = () => {
+		this.setState({ errors: {} });
+	};
 
 	handleDate = date => {
 		this.setState({ date: moment(date).format("MM/DD/YYYY") });
@@ -110,20 +145,7 @@ class AddIncome extends Component {
 	};
 
 	handleClick = () => {
-		if (!this.state.payer) {
-			this.setState({ payerError: true });
-			return;
-		} else {
-			this.setState({ payerError: false });
-		}
-
-		if (!this.state.income) {
-			this.setState({ incomeError: true });
-			return;
-		} else {
-			this.setState({ incomeError: false });
-		}
-		this.setState({ modalToggle: true });
+		this.validateSchema();
 	};
 
 	handleClear = () => {
@@ -132,8 +154,7 @@ class AddIncome extends Component {
 			income: "",
 			standard: false,
 			notes: "",
-			incomeError: false,
-			payerError: false
+			errors: {}
 		});
 	};
 
@@ -156,11 +177,9 @@ class AddIncome extends Component {
 					<Grid item xs={12}>
 						<Card className={classes.card}>
 							<CardContent>
-								<TypoGraphy variant="title">
-									<h5> Add Income Drawer</h5>
-								</TypoGraphy>
+								<TypoGraphy variant="h5">Add Income Drawer</TypoGraphy>
 								<Paper className={classes.paper}>
-									<TypoGraphy variant="title">
+									<TypoGraphy>
 										Add your monthly Income to see what you make and spend
 									</TypoGraphy>
 								</Paper>
@@ -188,11 +207,13 @@ class AddIncome extends Component {
 										/>
 									</MuiPickersUtilsProvider>
 								</FormControl>
-								<FormControl>
+
+								<FormControl className={classes.formControl}>
 									<TextField
-										id="standard-full-width"
+										id="standard"
 										value={this.state.payer}
 										onChange={this.handlePayer}
+										onFocus={this.handleFocus}
 										label="Payer"
 										required
 										placeholder="Payer"
@@ -202,29 +223,32 @@ class AddIncome extends Component {
 										}}
 									/>
 									<FormHelperText className={classes.error}>
-										{this.state.payerError && "Required"}
+										{this.state.errors.payer &&
+											_.values(this.state.errors.payer)}
 									</FormHelperText>
 								</FormControl>
-								<FormControl>
+
+								<FormControl className={classes.formControl}>
 									<TextField
 										id="standard-number"
 										value={this.state.income}
 										onChange={this.handleIncome}
-										min="1"
+										onFocus={this.handleFocus}
 										placeholder="$"
+										margin="normal"
 										required
-										label="Amount"
+										label="Income"
 										type="number"
-										className={classes.textField}
 										InputLabelProps={{
 											shrink: true
 										}}
-										margin="normal"
 									/>
 									<FormHelperText className={classes.error}>
-										{this.state.incomeError && "Required"}
+										{this.state.errors.income &&
+											Object.values(this.state.errors.income)}
 									</FormHelperText>
 								</FormControl>
+
 								<FormControlLabel
 									className={classes.checkBox}
 									control={
@@ -232,8 +256,10 @@ class AddIncome extends Component {
 									}
 									label="Standard"
 								/>
-								<FormControl fullWidth classname={classes.formControl}>
+
+								<FormControl fullWidth>
 									<TextareaAutosize
+										fullWidth
 										aria-label="minimum height"
 										rows={3}
 										placeholder="Notes"
@@ -251,12 +277,19 @@ class AddIncome extends Component {
 										aria-label="large contained secondary button group"
 										className={classes.buttonGroup}
 									>
-										<Button variant="contained" onClick={this.handleClick}>
+										<Button
+											className={classes.button}
+											variant="contained"
+											onClick={this.handleClick}
+										>
 											Add Income
 										</Button>
-										<Button color="secondary" onClick={this.handleClear}>
-											{" "}
-											Clear{" "}
+										<Button
+											className={classes.button}
+											color="secondary"
+											onClick={this.handleClear}
+										>
+											Clear
 										</Button>
 									</ButtonGroup>
 								</Grid>
@@ -266,16 +299,8 @@ class AddIncome extends Component {
 						<DialogComponent
 							modalToggle={this.state.modalToggle}
 							handleClose={this.handleClose}
-							dialogTitle="Income Added Successfully"
-							dialogContentText="Click OK to add new income if any"
-							buttonText="OK"
-						/>
-
-						<DialogComponent
-							modalToggle={this.state.modalToggle}
-							handleClose={this.handleClose}
-							dialogTitle="Income Added Successfully"
-							dialogContentText="Click OK to add new income if any"
+							dialogTitle="Success"
+							dialogContentText="Income added successfully"
 							buttonText="OK"
 						/>
 					</Grid>
