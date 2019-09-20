@@ -50,7 +50,6 @@ export const updateExpense = payload => {
 }
 
 export const deleteExpense = payload => {
-    console.log("action", payload)
     return function (dispatch) {
         return deleteExpenseService(payload)
             .then(

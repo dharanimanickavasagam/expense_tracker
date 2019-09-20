@@ -13,18 +13,6 @@ import moment from "moment";
 
 const MaterialExpenseTable = props => {
 	const data = props.expenses;
-
-	useEffect(() => {
-		const filter = data.map(datum => {
-			const del = _.omit(datum, ["tableData"]);
-			return del;
-		});
-		setState({ columns, data: filter });
-		console.log("Updating");
-		getExpense();
-		getExpenseType();
-	}, [data, props.expenses, props.expenseTypes]);
-
 	const columns = [
 		{ title: "Date", field: "date", type: "date" },
 		{ title: "Description", field: "description" },
@@ -37,6 +25,14 @@ const MaterialExpenseTable = props => {
 		{ title: "Amount", field: "amount" },
 		{ title: "Notes", field: "notes" }
 	];
+
+	useEffect(() => {
+		const filter = data.map(datum => {
+			const del = _.omit(datum, ["tableData"]);
+			return del;
+		});
+		setState({ columns, data: filter });
+	}, [data, props.expenses, props.expenseTypes]);
 
 	const [state, setState] = useState({
 		columns,
@@ -82,7 +78,7 @@ const MaterialExpenseTable = props => {
 							const data = [...state.data];
 							data.splice(data.indexOf(oldData), 1);
 							setState({ ...state, data });
-							console.log("deleteID", oldData.id);
+
 							props.deleteExpense(oldData.id);
 						}, 600);
 					})
