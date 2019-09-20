@@ -13,6 +13,7 @@ import { getExpenseType } from "../actions/expenseType";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import TypoGraphy from "@material-ui/core/Typography";
+import _ from "lodash";
 
 class AddExpense extends Component {
 	state = {
@@ -23,14 +24,16 @@ class AddExpense extends Component {
 		mode: "",
 		amount: 0,
 		notes: "",
-		errors: { name: "", type: "", amount: "" }
+		errors: {}
 	};
 
 	schema = {
+		date: Joi.date().required(),
 		name: Joi.string()
 			.min(5)
 			.required(),
 		type: Joi.string().required(),
+		mode: Joi.string().required(),
 		amount: Joi.number()
 			.required()
 			.min(1)
@@ -47,6 +50,9 @@ class AddExpense extends Component {
 		}
 	};
 
+	handleFocus = () => {
+		this.setState({ errors: {} });
+	};
 	handleDate = date => {
 		this.setState({ date: moment(date).format("MM/DD/YYYY") });
 	};
@@ -71,37 +77,57 @@ class AddExpense extends Component {
 		this.setState({ notes: event.target.value });
 	};
 
-	validate = () => {
+	validateSchema = () => {
 		const options = { abortEarly: false };
-		const res = Joi.validate(
+		const { error } = Joi.validate(
 			{
 				name: this.state.name,
 				type: this.state.type,
-				amount: this.state.amount
+				mode: this.state.mode,
+				amount: this.state.amount,
+				date: this.state.date
 			},
 			this.schema,
 			options
 		);
+
+		if (!error) {
+			return;
+		}
+		const errors = { ...this.state.errors };
+
+		const validatedResult = error.details.map(errorDetails => {
+			const errorState = errorDetails.message.match(/"(.*?)"/);
+			errors[errorState[1]] = errorDetails.message;
+			this.setState({ errors });
+			return errorDetails.message;
+		});
+		return validatedResult;
 	};
 
 	handleSubmit = event => {
 		event.preventDefault();
-		const errors = this.validate();
+		const errors = this.validateSchema();
 
 		this.setState({ errors: errors || {} });
 		if (errors) return;
 	};
 
 	handleAddExpense = () => {
-		this.props.addExpense({
-			date: this.state.date,
-			description: this.state.name,
-			type: this.state.type,
-			mode: this.state.mode,
-			amount: this.state.amount,
-			notes: this.state.notes
-		});
-		this.handleClearData();
+		const errors = this.validateSchema();
+
+		if (!errors) {
+			console.log("adding");
+			this.props.addExpense({
+				date: this.state.date,
+				description: this.state.name,
+				type: this.state.type,
+				mode: this.state.mode,
+				amount: this.state.amount,
+				notes: this.state.notes
+			});
+			this.handleClearData();
+		}
 	};
 
 	handleClearData = () => {
@@ -111,7 +137,8 @@ class AddExpense extends Component {
 			amount: 0,
 			mode: "",
 			date: "",
-			notes: ""
+			notes: "",
+			errors: {}
 		});
 	};
 
@@ -143,8 +170,12 @@ class AddExpense extends Component {
 								labelName="Date"
 								inputId="expenseDate"
 								error={errors}
+								onFocus={this.handleFocus}
 								onChange={this.handleDate}
 							/>
+							<div style={{ color: "red" }}>
+								{this.state.errors.date && _.values(this.state.errors.date)}
+							</div>
 						</Card.Text>
 
 						<Card.Text>
@@ -155,9 +186,13 @@ class AddExpense extends Component {
 								inputId="expenseName"
 								type="text"
 								onChange={this.handleExpenseName}
+								onFocus={this.handleFocus}
 								error={errors}
 								placeholder="Description"
 							/>
+							<div style={{ color: "red" }}>
+								{this.state.errors.name && _.values(this.state.errors.name)}
+							</div>
 						</Card.Text>
 
 						<Card.Text>
@@ -167,8 +202,12 @@ class AddExpense extends Component {
 								labelName="Expense Type"
 								selectId="expenseType"
 								onChange={this.handleExpenseType}
+								onFocus={this.handleFocus}
 								options={this.props.expenseTypes}
 							/>
+							<div style={{ color: "red" }}>
+								{this.state.errors.type && _.values(this.state.errors.type)}
+							</div>
 						</Card.Text>
 
 						<Card.Text>
@@ -179,13 +218,18 @@ class AddExpense extends Component {
 								labelName="Expense Mode"
 								inputId="expenseMode"
 								onChange={this.handleExpenseMode}
+								onFocus={this.handleFocus}
 								options={this.state.expenseModes}
 							/>
+							<div style={{ color: "red" }}>
+								{this.state.errors.mode && _.values(this.state.errors.mode)}
+							</div>
 						</Card.Text>
 
 						<Card.Text>
 							<Input
 								value={this.state.amount}
+								onFocus={this.handleFocus}
 								labelFor="expenseAmount"
 								labelName="Amount"
 								inputId="expenseAmount"
@@ -196,6 +240,9 @@ class AddExpense extends Component {
 								onChange={this.handleExpenseAmount}
 								placeholder="$"
 							/>
+							<div style={{ color: "red" }}>
+								{this.state.errors.amount && _.values(this.state.errors.amount)}
+							</div>
 						</Card.Text>
 
 						<Card.Text>
@@ -212,7 +259,6 @@ class AddExpense extends Component {
 
 						<button
 							type="submit"
-							disabled={this.validate()}
 							style={{ marginTop: "15px", marginLeft: "15px" }}
 							className="btn btn-primary"
 							onClick={this.handleAddExpense}
