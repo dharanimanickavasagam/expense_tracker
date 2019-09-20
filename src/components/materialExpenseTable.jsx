@@ -13,20 +13,26 @@ import moment from "moment";
 
 const MaterialExpenseTable = props => {
 	const data = props.expenses;
+	const lookUpType = Object.assign(
+		{},
+		...props.expenseTypes.map(key => ({ [key]: key }))
+	);
+
 	const columns = [
 		{ title: "Date", field: "date", type: "date" },
 		{ title: "Description", field: "description" },
-		{ title: "Type", field: "type", lookup: [...props.expenseTypes] },
+		{ title: "Type", field: "type", lookup: lookUpType },
 		{
 			title: "Mode",
 			field: "mode",
-			lookup: ["Fixed", "Variable"]
+			lookup: { Fixed: "Fixed", Variable: "Variable" }
 		},
 		{ title: "Amount", field: "amount" },
 		{ title: "Notes", field: "notes" }
 	];
 
 	useEffect(() => {
+		console.log("State in redux store", data);
 		const filter = data.map(datum => {
 			const del = _.omit(datum, ["tableData"]);
 			return del;
@@ -53,9 +59,9 @@ const MaterialExpenseTable = props => {
 							const data = [...state.data];
 							data.push(newData);
 							setState({ ...state, data });
-							delete newData.tableData;
 							newData.date = moment(newData.date).format("MM/DD/YYYY");
-							props.addExpense(newData);
+							const addData = _.omit(newData, "tableData");
+							props.addExpense(addData);
 						}, 600);
 					}),
 
@@ -66,8 +72,8 @@ const MaterialExpenseTable = props => {
 							const data = [...state.data];
 							data[data.indexOf(oldData)] = newData;
 							setState({ ...state, data });
-							delete newData.tableData;
-							props.updateExpense(newData);
+							const updateData = _.omit(newData, "tableData");
+							props.updateExpense(updateData);
 						}, 600);
 					}),
 
@@ -78,7 +84,6 @@ const MaterialExpenseTable = props => {
 							const data = [...state.data];
 							data.splice(data.indexOf(oldData), 1);
 							setState({ ...state, data });
-
 							props.deleteExpense(oldData.id);
 						}, 600);
 					})

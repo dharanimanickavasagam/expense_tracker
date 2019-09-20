@@ -117,7 +117,6 @@ class AddExpense extends Component {
 		const errors = this.validateSchema();
 
 		if (!errors) {
-			console.log("adding");
 			this.props.addExpense({
 				date: this.state.date,
 				description: this.state.name,
@@ -138,6 +137,7 @@ class AddExpense extends Component {
 			mode: "",
 			date: "",
 			notes: "",
+
 			errors: {}
 		});
 	};
