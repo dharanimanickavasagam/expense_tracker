@@ -27,7 +27,7 @@ const MaterialExpenseTable = props => {
 			field: "mode",
 			lookup: { Fixed: "Fixed", Variable: "Variable" }
 		},
-		{ title: "Amount", field: "amount" },
+		{ title: "Amount", field: "amount", type: "numeric" },
 		{ title: "Notes", field: "notes" }
 	];
 

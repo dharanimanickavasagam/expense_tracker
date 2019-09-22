@@ -44,6 +44,36 @@
       "amount": "12",
       "notes": "xcv",
       "id": 5
+    },
+    {
+      "date": "09/09/2019",
+      "description": "lolol",
+      "type": "Food",
+      "mode": "Fixed",
+      "amount": "1.5",
+      "notes": "",
+      "id": 6
+    },
+    {
+      "date": "09/26/2019",
+      "description": "xczv",
+      "type": "Shelter",
+      "mode": "Variable",
+      "amount": "xzcv",
+      "notes": "xv",
+      "id": 7
+    }
+  ],
+  "income": [
+    {
+      "date": "09/25/2019",
+      "payer": "Salary changes ",
+      "income": "4500",
+      "notes": "xcvb",
+      "id": 3,
+      "tableData": {
+        "id": 0
+      }
     }
   ]
 }

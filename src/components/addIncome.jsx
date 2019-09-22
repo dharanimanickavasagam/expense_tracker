@@ -282,7 +282,7 @@ class AddIncome extends Component {
 											variant="contained"
 											onClick={this.handleClick}
 										>
-											Add Income
+											Add
 										</Button>
 										<Button
 											className={classes.button}

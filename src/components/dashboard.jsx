@@ -19,16 +19,9 @@ const styles = theme => ({
 		width: "100%",
 		maxWidth: 360,
 		backgroundColor: theme.palette.background.paper
-	},
-	drawer: {
-		color: "red",
-		right: "30%"
 	}
 });
 
-// & > div {
-// 	right: 65%;
-// }
 const StyledDrawer = styled(Drawer)`
 	.MuiDrawer-paperAnchorLeft {
 		right: 70%;
