@@ -266,7 +266,7 @@ class AddIncome extends Component {
 									label="Standard"
 								/>
 
-								<FormControl fullWidth>
+								<FormControl>
 									<TextareaAutosize
 										fullWidth
 										aria-label="minimum height"

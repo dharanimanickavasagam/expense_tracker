@@ -13,7 +13,7 @@ class Navbar extends Component {
 			<React.Fragment>
 				<nav className="navbar navbar-expand-lg navbar-light bg-light">
 					<NavLink to={"/"} className="navbar-brand">
-						Dashboard
+						Expense
 					</NavLink>
 					<button
 						className="navbar-toggler"
@@ -29,12 +29,6 @@ class Navbar extends Component {
 
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mr-auto">
-							<li className="nav-item">
-								<NavLink to={"/addExpense"} className="nav-link">
-									Expense <span className="sr-only">(current)</span>
-								</NavLink>
-							</li>
-
 							<li className="nav-item">
 								<NavLink to={"/income"} className="nav-link">
 									Income
@@ -57,7 +51,6 @@ class Navbar extends Component {
 				</nav>
 
 				<Switch>
-					<Route path="/addExpense" component={AddExpense} />
 					<Route path="/income" component={Income} />
 					<Route path="/expenseType" component={ExpenseType} />
 					<Route path="/chart" component={Chart} />
