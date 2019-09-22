@@ -9,7 +9,6 @@ import {
 } from "../actions/expense";
 import { getExpenseType } from "./../actions/expenseType";
 import _ from "lodash";
-import moment from "moment";
 
 const MaterialExpenseTable = props => {
 	const data = props.expenses;
@@ -52,19 +51,6 @@ const MaterialExpenseTable = props => {
 			columns={state.columns}
 			data={state.data}
 			editable={{
-				onRowAdd: newData =>
-					new Promise(resolve => {
-						setTimeout(() => {
-							resolve();
-							const data = [...state.data];
-							data.push(newData);
-							setState({ ...state, data });
-							newData.date = moment(newData.date).format("MM/DD/YYYY");
-							const addData = _.omit(newData, "tableData");
-							props.addExpense(addData);
-						}, 600);
-					}),
-
 				onRowUpdate: (newData, oldData) =>
 					new Promise(resolve => {
 						setTimeout(() => {
