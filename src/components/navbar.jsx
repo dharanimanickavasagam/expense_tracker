@@ -42,7 +42,7 @@ class Navbar extends Component {
 							</li>
 
 							<li className="nav-item">
-								<NavLink to={"/addExpenseType"} className="nav-link">
+								<NavLink to={"/expenseType"} className="nav-link">
 									Expense Type
 								</NavLink>
 							</li>
@@ -59,7 +59,7 @@ class Navbar extends Component {
 				<Switch>
 					<Route path="/addExpense" component={AddExpense} />
 					<Route path="/income" component={Income} />
-					<Route path="/addExpenseType" component={ExpenseType} />
+					<Route path="/expenseType" component={ExpenseType} />
 					<Route path="/chart" component={Chart} />
 					<Route exact path="/" component={Dashboard} />
 					<Route path="/not-found" component={NotFound} />
