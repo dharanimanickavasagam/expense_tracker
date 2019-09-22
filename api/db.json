@@ -28,49 +28,51 @@
   ],
   "expenses": [
     {
-      "date": "09/20/2019",
-      "description": "qweert",
-      "type": "Food",
-      "mode": "Fixed",
-      "amount": "2",
-      "notes": "",
-      "id": 4
-    },
-    {
-      "date": "09/26/2019",
-      "description": "cx",
-      "type": "Shelter",
+      "date": "09/22/2019",
+      "description": "Spending in Walmart ",
+      "type": "Grocery",
       "mode": "Variable",
-      "amount": "12",
-      "notes": "xcv",
-      "id": 5
+      "amount": "445",
+      "notes": "dfbf",
+      "id": 1
     },
     {
-      "date": "09/09/2019",
-      "description": "lolol",
-      "type": "Food",
-      "mode": "Fixed",
-      "amount": "1.5",
-      "notes": "",
-      "id": 6
-    },
-    {
-      "date": "09/26/2019",
-      "description": "xczv",
-      "type": "Shelter",
+      "date": "09/24/2019",
+      "description": "Costco Gas",
+      "type": "Car",
       "mode": "Variable",
-      "amount": "xzcv",
+      "amount": "23",
+      "notes": "zxv",
+      "id": 2
+    },
+    {
+      "date": "09/01/2019",
+      "type": "Shelter",
+      "description": "Rent",
+      "mode": "Fixed",
+      "amount": "990",
+      "notes": "Monthly",
+      "id": 3
+    },
+    {
+      "type": "Car",
+      "date": "09/16/2019",
+      "description": "Maintainence",
+      "mode": "Variable",
+      "amount": "23",
       "notes": "xv",
-      "id": 7
+      "id": 4
     }
   ],
   "income": [
     {
-      "date": "09/25/2019",
-      "payer": "Salary changes ",
-      "income": "4500",
-      "notes": "xcvb",
-      "id": 3,
+      "0": "1",
+      "1": "2",
+      "id": 1,
+      "date": "09/04/2019",
+      "payer": "",
+      "income": "12",
+      "notes": "roll over standard salary ",
       "tableData": {
         "id": 0
       }

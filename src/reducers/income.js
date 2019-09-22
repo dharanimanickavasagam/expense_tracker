@@ -25,6 +25,8 @@ const income = (state = initialState, action) => {
             }
 
             case ADD_INCOME: {
+                console.log(action.payload, " in reducer");
+
                 let id;
                 if (state.income.length === 0) {
                     id = 1;
@@ -32,7 +34,10 @@ const income = (state = initialState, action) => {
                     id = state.income.slice(-1)[0].id + 1;
                 }
                 return Object.assign({}, state, {
-                    income: state.income.concat(action.payload, id)
+                    income: state.income.concat({
+                        ...action.payload,
+                        id
+                    })
                 })
             }
 

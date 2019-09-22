@@ -24,6 +24,8 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import DialogComponent from "../components/common/dialogComponent";
 import Joi from "joi-browser";
 import _ from "lodash";
+import { connect } from "react-redux";
+import { addIncome } from "../actions/income";
 
 const styles = theme => ({
 	root: {
@@ -99,6 +101,12 @@ class AddIncome extends Component {
 
 		if (!error) {
 			this.setState({ modalToggle: true });
+			this.props.addIncome({
+				date: this.state.date,
+				payer: this.state.payer,
+				notes: this.state.notes,
+				income: this.state.income
+			});
 			return;
 		}
 		const errors = { ...this.state.errors };
@@ -139,6 +147,7 @@ class AddIncome extends Component {
 		const invertStandard = !this.state.standard;
 		this.setState({ standard: invertStandard });
 	};
+
 	handleClose = () => {
 		this.setState({ modalToggle: false });
 		this.handleClear();
@@ -310,4 +319,12 @@ class AddIncome extends Component {
 	}
 }
 
-export default withStyles(styles)(AddIncome);
+const mapDispatchToProps = dispatch => {
+	return {
+		addIncome: income => dispatch(addIncome(income))
+	};
+};
+export default connect(
+	null,
+	mapDispatchToProps
+)(withStyles(styles)(AddIncome));

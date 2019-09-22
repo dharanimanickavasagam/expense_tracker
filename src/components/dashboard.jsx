@@ -24,7 +24,7 @@ const styles = theme => ({
 
 const StyledDrawer = styled(Drawer)`
 	.MuiDrawer-paperAnchorLeft {
-		right: 70%;
+		right: 80%;
 	}
 `;
 
