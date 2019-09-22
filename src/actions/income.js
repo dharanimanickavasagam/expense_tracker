@@ -24,6 +24,7 @@ export const getIncome = () => {
     }
 }
 export const addIncome = (payload) => {
+    console.log("Action", payload)
     return function (dispatch) {
         return addIncomeService(payload)
             .then(dispatch({

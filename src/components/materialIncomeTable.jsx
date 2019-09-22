@@ -7,7 +7,8 @@ import {
 	deleteIncome,
 	updateIncome
 } from "../actions/income";
-import moment from "moment";
+
+import _ from "lodash";
 
 class MaterialIncomeTable extends Component {
 	state = {
@@ -17,13 +18,24 @@ class MaterialIncomeTable extends Component {
 			{ title: "Income", field: "income", type: "numeric" },
 			{ title: "Notes", field: "notes" }
 		],
-		data: this.props.income
+		data: []
 	};
 
-	componentDidMount() {
-		getIncome();
-	}
+	getTableData = () => {
+		const data = this.props.income;
+		this.setState({ data });
+	};
 
+	componentDidMount = () => {
+		this.getTableData();
+	};
+
+	componentDidUpdate = prevProps => {
+		if (this.props.income !== prevProps.income) {
+			this.getTableData();
+			getIncome();
+		}
+	};
 	render() {
 		return (
 			<MaterialTable
@@ -31,17 +43,6 @@ class MaterialIncomeTable extends Component {
 				columns={this.state.columns}
 				data={this.state.data}
 				editable={{
-					onRowAdd: newData =>
-						new Promise(resolve => {
-							setTimeout(() => {
-								resolve();
-								const data = [...this.state.data];
-								newData.date = moment(newData.date).format("MM/DD/YYYY");
-								data.push(newData);
-								this.setState({ data });
-								this.props.addIncome(newData);
-							}, 600);
-						}),
 					onRowUpdate: (newData, oldData) =>
 						new Promise(resolve => {
 							setTimeout(() => {
@@ -59,7 +60,6 @@ class MaterialIncomeTable extends Component {
 								const data = [...this.state.data];
 								data.splice(data.indexOf(oldData), 1);
 								this.setState({ data });
-								console.log(oldData.id);
 								this.props.deleteIncome(oldData.id);
 							}, 600);
 						})

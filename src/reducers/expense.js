@@ -13,8 +13,7 @@ const initialState = {
 const expense = (state = initialState, action) => {
     switch (action.type) {
         case GET_EXPENSE:
-            console.log("Action payload", action.payload);
-            console.log("State expenses", state.expenses);
+
             if (_.isEqual(action.payload.sort(), state.expenses.sort())) {
                 return Object.assign({}, state, {
                     expenses: state.expenses
@@ -25,11 +24,14 @@ const expense = (state = initialState, action) => {
                 });
             }
             case ADD_EXPENSE: {
+
                 let id;
                 if (state.expenses.length === 0) {
                     id = 1;
+
                 } else {
                     id = state.expenses.slice(-1)[0].id + 1;
+
                 }
 
                 return Object.assign({}, state, {
