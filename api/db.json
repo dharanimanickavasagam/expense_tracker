@@ -80,6 +80,15 @@
       "amount": "2",
       "notes": "",
       "id": 6
+    },
+    {
+      "date": "09/22/2019",
+      "description": "water ",
+      "type": "Water",
+      "mode": "Fixed",
+      "amount": "011",
+      "notes": "",
+      "id": 7
     }
   ],
   "income": [

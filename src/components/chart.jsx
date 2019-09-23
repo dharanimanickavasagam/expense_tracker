@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { VictoryPie } from "victory";
+import { VictoryPie, VictoryTooltip } from "victory";
 import { connect } from "react-redux";
 import { getExpense } from "../actions/expense";
 import { getIncome } from "../actions/income";
@@ -127,8 +127,13 @@ class Chart extends Component {
 		</div>
 	);
 
+	handleClick = datum => {
+		console.log("Clicked", datum);
+	};
+
 	render() {
 		const classes = this.props;
+
 		return (
 			<>
 				<div>
@@ -147,6 +152,9 @@ class Chart extends Component {
 							data={this.handleChartData(this.state.type)}
 							standalone={false}
 							colorScale={["red", "navy", "gray", "gold", "green"]}
+							animate={{
+								duration: 2000
+							}}
 						/>
 					</svg>
 

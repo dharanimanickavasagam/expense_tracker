@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Chart from "./chart";
-import AddExpense from "./addExpense";
 import ExpenseType from "./expenseType";
 import Dashboard from "./dashboard";
 import NotFound from "./notFound";
@@ -23,9 +22,7 @@ class Navbar extends Component {
 						aria-controls="navbarSupportedContent"
 						aria-expanded="false"
 						aria-label="Toggle navigation"
-					>
-						<span className="navbar-toggler-icon"></span>
-					</button>
+					></button>
 
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mr-auto">
