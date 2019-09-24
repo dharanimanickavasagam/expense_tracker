@@ -93,30 +93,11 @@
   ],
   "income": [
     {
-      "0": "1",
-      "1": "2",
-      "id": 1,
-      "date": "09/04/2019",
-      "payer": "self pay ",
-      "income": "12",
-      "notes": "roll over standard salary ",
-      "tableData": {
-        "id": 0
-      }
-    },
-    {
       "date": "09/22/2019",
       "payer": "Salary",
       "notes": "",
       "income": "4500",
       "id": 2
-    },
-    {
-      "date": "09/22/2019",
-      "payer": "sdfgdfsg",
-      "notes": "",
-      "income": "12345",
-      "id": 3
     }
   ]
 }
