@@ -6,6 +6,15 @@ const income = require("./routes/income");
 const user = require("./routes/user");
 const auth = require("./routes/auth");
 const mongoose = require('mongoose');
+const config = require("config");
+
+
+if (!config.get("jwtPrivateKey")) {
+    console.log("JWT not defined..");
+    process.exit(1);
+
+}
+
 
 // generic connection to mongodb database ExpenseTracker 
 mongoose.connect("mongodb://localhost/ExpenseTracker").then(

@@ -1,5 +1,6 @@
-{ 
-    "mail" : { 
-        "password" : "expenseTracker_password"
-    }
+{
+    "mail": {
+        "password": "expenseTracker_password"
+    },
+    "jwtPrivateKey": "expenseTracker_jwtPrivateKey"
 }
