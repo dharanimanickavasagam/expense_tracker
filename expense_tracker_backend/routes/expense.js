@@ -9,7 +9,7 @@ const {
 
 router.use(express.json());
 
-//3.create objects with the Expense class and write the restful services with express
+//create objects with the Expense class and write the restful services with express
 
 //get request for all the expenses in the database 
 router.get("/", async (req, res) => {
