@@ -4,6 +4,7 @@ const expenseType = require("./routes/expenseType");
 const expense = require("./routes/expense");
 const income = require("./routes/income");
 const user = require("./routes/user");
+const auth = require("./routes/auth");
 const mongoose = require('mongoose');
 
 // generic connection to mongodb database ExpenseTracker 
@@ -18,6 +19,7 @@ app.use("/api/expenseType", expenseType);
 app.use("/api/expense", expense);
 app.use("/api/income", income);
 app.use("/api/user", user);
+app.use("/api/auth", auth);
 
 
 app.listen(5000, () => {
