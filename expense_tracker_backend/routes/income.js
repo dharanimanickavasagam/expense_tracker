@@ -3,8 +3,15 @@ const {
     Income,
     validateIncome
 } = require("../models/income");
+const {
+    auth
+} = require("../middleware/auth");
+
+
 const router = express.Router();
 router.use(express.json());
+router.use(auth);
+
 
 //get request for income 
 router.get("/", async (req, res) => {
