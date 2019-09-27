@@ -5,11 +5,24 @@ const {
     User,
     validateUser
 } = require("../models/user");
+const {
+    auth
+} = require("../middleware/auth")
 
 const router = express.Router();
 router.use(express.json());
 
+//get the current authenticated user
+router.get("/me", auth, async (req, res) => {
+    const user = await User.findById(req.user._id).select("-password");
 
+    if (!user)
+        return res.status(400).send("User is not found");
+    res.send(user)
+
+});
+
+//create a new user 
 router.post("/", async (req, res) => {
     const {
         error
@@ -32,7 +45,8 @@ router.post("/", async (req, res) => {
     let user = new User({
         name: req.body.name,
         email: req.body.email,
-        password: hashedPassword
+        password: hashedPassword,
+        isAdmin: req.body.isAdmin
     });
 
     user = await user.save();

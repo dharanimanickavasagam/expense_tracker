@@ -4,8 +4,6 @@ const {
 } = require("../models/user");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
-const jwt = require("jsonwebtoken");
-const config = require("config");
 
 const router = express.Router();
 router.use(express.json());

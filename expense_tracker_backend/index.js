@@ -4,6 +4,7 @@ const expenseType = require("./routes/expenseType");
 const expense = require("./routes/expense");
 const income = require("./routes/income");
 const user = require("./routes/user");
+const admin = require("./routes/admin");
 const auth = require("./routes/auth");
 const mongoose = require('mongoose');
 const config = require("config");
@@ -28,6 +29,7 @@ app.use("/api/expenseType", expenseType);
 app.use("/api/expense", expense);
 app.use("/api/income", income);
 app.use("/api/user", user);
+app.use("/api/admin", admin);
 app.use("/api/auth", auth);
 
 
