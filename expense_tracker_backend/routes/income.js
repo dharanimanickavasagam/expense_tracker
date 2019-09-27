@@ -13,11 +13,12 @@ router.use(express.json());
 router.use(auth);
 
 
+
 //get request for income 
 router.get("/", async (req, res) => {
     const income = await Income.find();
-    res.send(income)
-})
+    res.send(income);
+});
 
 //post a new income to the income collection
 router.post("/", async (req, res) => {
