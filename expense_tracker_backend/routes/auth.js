@@ -30,11 +30,7 @@ router.post("/", async (req, res) => {
     if (!validPassword)
         return res.status(400).send("Invalid Username or Password");
 
-
-    const token = jwt.sign({
-        _id: user._id
-    }, config.get("jwtPrivateKey"));
-
+    const token = user.generateAuthToken();
     res.send(token);
 
 });
@@ -48,6 +44,5 @@ function authenticateUser(user) {
 
     return Joi.validate(user, schema);
 }
-
 
 module.exports = router;
