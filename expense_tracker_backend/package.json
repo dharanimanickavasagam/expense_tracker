@@ -4,7 +4,7 @@
   "description": "",
   "main": "n",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --watchAll --verbose "
   },
   "author": "Dharani Manickavasagam",
   "license": "ISC",
@@ -15,12 +15,14 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "helmet": "^3.21.1",
+    "jest": "^24.9.0",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.7.1",
     "morgan": "^1.9.1",
     "pug": "^2.0.4",
+    "supertest": "^4.0.2",
     "winston": "^3.2.1"
   }
 }
