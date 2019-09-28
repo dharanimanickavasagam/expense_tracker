@@ -4,7 +4,7 @@
   "description": "",
   "main": "n",
   "scripts": {
-    "test": "jest --watchAll --verbose "
+    "test": "jest --watchAll --verbose --coverage "
   },
   "author": "Dharani Manickavasagam",
   "license": "ISC",
