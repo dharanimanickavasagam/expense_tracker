@@ -8,3 +8,5 @@ expense_tracker_frontend/yarn.lock
 expense_tracker_backend/node_modules
 expense_tracker_backend/yarn.lock
 expense_tracker_backend/yarn-error.log
+expense_tracker_backend/package-lock.json
+expense_tracker_backend/errorLog.log
