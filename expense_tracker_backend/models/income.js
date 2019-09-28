@@ -27,7 +27,7 @@ const Income = mongoose.model('Income', incomeSchema);
 function validateIncome(income) {
     const schema = {
         date: Joi.date().required(),
-        payer: Joi.string().required(),
+        payer: Joi.string().min(2).required(),
         income: Joi.number().required(),
         notes: Joi.any()
     }

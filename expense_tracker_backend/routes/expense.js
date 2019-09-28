@@ -19,6 +19,14 @@ router.get("/", async (req, res) => {
     res.send(expense)
 });
 
+//get the corresponding request with id 
+router.get("/:id", async(req,res) => { 
+    const id = req.params.id; 
+    const expense = await Expense.findById(id);
+    if(!expense) 
+        return res.status(404).send("Expense with ID is not found ");
+    res.send(expense); 
+}); 
 
 //post request to add new expense 
 router.post("/", async (req, res) => {
