@@ -37,12 +37,14 @@ const Expense = mongoose.model('Expense', expenseSchema);
 
 function validateExpense(expense) {
     const schema = {
+        _id : Joi.string(),
         date: Joi.date().required(),
         name: Joi.string().min(5).required(),
         type: Joi.string().required(),
         mode: Joi.string().required(),
         amount: Joi.number().required(),
-        notes: Joi.any()
+        notes: Joi.any(),
+        __v :Joi.number()
     }
     const result = Joi.validate(expense, schema);
     return result;

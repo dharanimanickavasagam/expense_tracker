@@ -119,7 +119,7 @@ class AddExpense extends Component {
 		if (!errors) {
 			this.props.addExpense({
 				date: this.state.date,
-				description: this.state.name,
+				name: this.state.name,
 				type: this.state.type,
 				mode: this.state.mode,
 				amount: this.state.amount,
