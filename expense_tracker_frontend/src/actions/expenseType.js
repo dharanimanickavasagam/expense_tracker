@@ -16,7 +16,6 @@ import {
 export const getExpenseType = () => {
   return function (dispatch) {
     return getExpenseTypeService()
-      .then(response => response.data)
       .then(data => {
         dispatch({
           type: GET_EXPENSE_TYPE,
@@ -29,35 +28,35 @@ export const getExpenseType = () => {
 export const addExpenseType = payload => {
   return function (dispatch) {
     return addExpenseTypeService(payload)
-      .then(
+      .then( data => {
         dispatch({
           type: ADD_EXPENSE_TYPE,
-          payload: payload
+          payload: data
         })
-      );
+      })
   };
 };
 
 export const updateExpenseType = payload => {
   return function (dispatch) {
     return updateExpenseTypeService(payload)
-      .then(
-        dispatch({
+      .then( data => {
+          dispatch({
           type: UPDATE_EXPENSE_TYPE,
-          payload: payload
+          payload: data
         })
-      );
+      });
   }
 };
 
 export const deleteExpenseType = payload => {
   return function (dispatch) {
     return deleteExpenseTypeService(payload)
-      .then(
-        dispatch({
+      .then( data => 
+        {dispatch({
           type: DELETE_EXPENSE_TYPE,
-          payload: payload
-        })
+          payload: data
+        })}
       );
   };
 };

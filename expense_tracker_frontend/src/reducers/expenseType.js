@@ -16,7 +16,7 @@ const expenseType = (state = initialState, action) => {
   switch (action.type) {
     case GET_EXPENSE_TYPE: {
 
-      if (_.isEqual(action.payload.sort(), state.expenseTypes.sort())) {
+      if (_.isEqual(action.payload, state.expenseTypes)) {
         return Object.assign({}, state, {
           expenseTypes: state.expenseTypes
         });
@@ -28,18 +28,10 @@ const expenseType = (state = initialState, action) => {
     }
 
     case ADD_EXPENSE_TYPE: {
-      //gets the latest id
-      let id;
-      if (state.expenseTypes.length === 0) {
-        id = 1;
-      } else {
-        id = state.expenseTypes.slice(-1)[0].id + 1;
-      }
 
       return Object.assign({}, state, {
         expenseTypes: state.expenseTypes.concat({
           ...action.payload,
-          id
         })
       });
     }
@@ -49,28 +41,28 @@ const expenseType = (state = initialState, action) => {
       const {
         name,
         need,
-        id
+        _id
       } = action.payload;
+      
 
       return {
         ...state,
-        expenseTypes: state.expenseTypes.map((eT) =>
-          eT.id === id ? {
-            ...eT,
-            name,
-            need
-          } : eT
+        expenseTypes: state.expenseTypes.map((expenseType) =>
+          expenseType._id === _id ? {
+              ...expenseType,
+              name,
+              need,_id
+            } : expenseType
         )
       };
     }
 
     case DELETE_EXPENSE_TYPE: {
-      const toBeDeletedID = action.payload;
-
+      const toBeDeletedID = action.payload._id;
       return {
         ...state,
         expenseTypes: state.expenseTypes.filter(
-          expenseType => expenseType.id !== toBeDeletedID
+          expenseType => expenseType._id !== toBeDeletedID
         )
       };
     }

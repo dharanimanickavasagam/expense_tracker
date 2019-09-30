@@ -16,35 +16,56 @@ import Delete from "./common/delete";
 
 class ExpenseType extends Component {
 	state = {
-		id: "",
-		newName: "",
-		newNeed: "",
+		_id: "",
+		name: "",
+		need: "",
 		options: ["Primary", "Secondary", "Misc"],
-		columns: ["", "Type", "Need", "ID", ""],
+		columns: ["", "ID", "Type", "Need", ""],
 		data: [],
-		updateId: "",
+		errors : {},	
 		displayUpdate: false,
 		displayAdd: true
 	};
 
 	schema = {
-		newName: Joi.string().required(),
-		newNeed: Joi.string()
+		name: Joi.string().required(),
+		need: Joi.string()
 			.min(3)
 			.required()
 	};
+
+
+	validateFormDetails = (event) => { 
+		
+		const options = {abortEarly : false};
+		const {error} = Joi.validate({ 
+		   name : this.state.name,
+		   need : this.state.need, 
+		}, this.schema,options);
+	
+		if(!error) return "valid";
+		  
+		const errors = { ...this.state.errors };
+	
+		error.details.map(errorDetails => {
+			const errorState = errorDetails.message.match(/"(.*?)"/);
+			errors[errorState[1]] = errorDetails.message;
+			this.setState({ errors });
+			return errorDetails.message;
+		});
+	}
 
 	getTableData = () => {
 		const data = this.props.expenseTypes.map((eT, Id) => {
 			return {
 				editComp: (
-					<Edit name={`edit${eT.id}`} onClick={() => this.handleEdit(eT.id)} />
+					<Edit name={`edit${eT._id}`} onClick={() => this.handleEdit(eT._id)} />
 				),
 				...eT,
 				trashComp: (
 					<Delete
-						name={`delete${eT.id}`}
-						onClick={() => this.handleDelete(eT.id)}
+						name={`delete${eT._id}`}
+						onClick={() => this.handleDelete(eT._id)}
 					/>
 				)
 			};
@@ -63,53 +84,60 @@ class ExpenseType extends Component {
 		}
 	};
 
+	handleFocus = () => {
+		this.setState({ errors: {} });
+	};
+
 	handleNameChange = event => {
-		const newName = event.target.value;
-		this.setState({ newName });
+		const name = event.target.value;
+		this.setState({ name });
 	};
 
 	handleNeedChange = event => {
-		const newNeed = event.target.value;
-		this.setState({ newNeed });
+		const need = event.target.value;
+		this.setState({ need });
 	};
 
 	handleAdd = () => {
-		this.props.addExpenseType({
-			name: _.startCase(this.state.newName),
-			need: this.state.newNeed
+		const res = this.validateFormDetails();
+		if(res === "valid"){
+			this.props.addExpenseType({
+			name: _.startCase(this.state.name),
+			need: this.state.need
 		});
-		this.setState({ newName: "", newNeed: "" });
+		this.setState({ name: "", need: "", _id:"" });}
 	};
 
 	handleUpdate = () => {
-		console.log("id is ", this.state.id);
-		this.props.updateExpenseType({
-			name: _.startCase(this.state.newName),
-			need: this.state.newNeed,
-			id: this.state.id
-		});
+		const res = this.validateFormDetails();
+		if(res === "valid"){
+			this.props.updateExpenseType({
+			name: _.startCase(this.state.name),
+			need: this.state.need,
+			_id: this.state._id
+		})}
 
 		this.setState({
-			newName: "",
-			newNeed: "",
-			id: "",
+			name: "",
+			need: "",
+			_id: "",
 			displayUpdate: false,
 			displayAdd: true
 		});
 	};
 
 	handleEdit = toBeEditedId => {
-		console.log("handleEdit()- toBeEditedId", toBeEditedId);
+		
 		const expenseTypes = [...this.props.expenseTypes];
 		const res = expenseTypes.filter(
-			expenseType => expenseType.id === toBeEditedId
+			expenseType => expenseType._id === toBeEditedId
 		);
-		const { id, name, need } = res[0];
+		const { _id, name, need } = res[0];
 
 		this.setState({
-			id,
-			newName: name,
-			newNeed: need,
+			_id,
+			name: name,
+			need: need,
 			displayUpdate: true,
 			displayAdd: false
 		});
@@ -138,21 +166,31 @@ class ExpenseType extends Component {
 							labelFor="expenseTypeName"
 							labelName="Expense Type"
 							inputId="expenseType"
-							value={this.state.newName}
+							value={this.state.name}
 							type="text"
 							onChange={this.handleNameChange}
 							placeholder="Expense Type"
 							autoComplete="off"
+							onFocus={this.handleFocus}
 						/>
+						 <div style={{color : "red"}}> 
+            					{this.state.errors.name &&
+								_.values(this.state.errors.name)}
+            			</div>
 
 						<Select
 							labelFor="expenseTypeNeed"
 							labelName="Need"
 							selectId="expenseTypeNeed"
-							value={this.state.newNeed}
+							value={this.state.need}
 							onChange={this.handleNeedChange}
 							options={this.state.options}
+							onFocus={this.handleFocus}
 						/>
+						<div style={{color : "red"}}> 
+            					{this.state.errors.need &&
+								_.values(this.state.errors.need)}
+            			</div>
 
 						<div className="buttonContainer">
 							<button

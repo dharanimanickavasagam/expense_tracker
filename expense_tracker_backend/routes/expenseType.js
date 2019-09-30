@@ -8,7 +8,7 @@ router.use(express.json());
 
 //get request 
 router.get("/", async (req, res) => {
-    const expenseType = await ExpenseType.find();
+    const expenseType = await ExpenseType.find().select("-__v");
     res.send(expenseType)
 });
 
@@ -53,8 +53,9 @@ router.put("/:id", async (req, res) => {
 
     const expenseType = await ExpenseType.findByIdAndUpdate(id, {
         name: req.body.name,
-        need: req.body.need
-    });
+        need: req.body.need,
+        _id: req.body._id
+        },{ new: true });
     if (!expenseType)
         return res.status(404).send("The ID does not exist");
     res.send(expenseType)
@@ -68,8 +69,5 @@ router.delete("/:id", async (req, res) => {
     if (!expenseType)
         return res.status(404).send("The ID does not exist");
     res.send(expenseType)
-
-
-
 })
 module.exports = router;
