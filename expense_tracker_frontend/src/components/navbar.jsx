@@ -48,8 +48,8 @@ class Navbar extends Component {
 							</li>
 
 							<li className="nav-item">
-								<NavLink to={"/logout"} className="nav-link">
-									Logout
+								<NavLink to={"/signup"} className="nav-link">
+									Signup
 								</NavLink>
 							</li>
 
@@ -68,7 +68,7 @@ class Navbar extends Component {
 					<Route path="/income" component={Income} />
 					<Route path="/expenseType" component={ExpenseType} />
 					<Route path="/chart" component={Chart} />
-					<Route path="/logout" component={Logout} />
+					<Route path="/signup" component={SignUp} />
 					<Route exact path="/" component={Dashboard} />
 					<Route path="/not-found" component={NotFound} />
 					<Redirect to="/not-found" component={NotFound} />

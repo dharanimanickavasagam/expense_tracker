@@ -13,7 +13,7 @@ import {  NavLink } from "react-router-dom";
 import Copyright from "./common/copyright"
 import Joi from "joi-browser"
 import _ from "lodash";
-
+import {addUserService } from "../services/userService";
 
 
 const styles = theme => ({
@@ -62,7 +62,7 @@ class Signup extends Component {
   }
   
 
-  validateFormDetails = (event) => { 
+  validateFormDetails = async(event) => { 
 
     event.preventDefault();
     const options = {abortEarly : false};
@@ -72,8 +72,23 @@ class Signup extends Component {
        password : this.state.password
     }, this.schema,options);
 
-    if(!error)
-      return this.props.history.push('/login')
+    if(!error) { 
+      try { 
+        const response =  await addUserService({ name : this.state.name,name : this.state.name,
+        email : this.state.email, 
+        password : this.state.password})
+        return this.props.history.push('/login'); 
+      }catch(error) { 
+        if (error.response && error.response.status === 400) {
+          const errors = { ...this.state.errors };
+          errors.email = error.response.data;
+          this.setState({ errors });
+          return;
+        }
+        return
+      }
+    }
+      
      
     const errors = { ...this.state.errors };
 
@@ -92,15 +107,15 @@ class Signup extends Component {
 
   handleName = (event) => { 
     this.setState({name : event.target.value})
-  }   
+  };   
 
   handleEmail =(event) => { 
     this.setState({email : event.target.value})
-  }
+  };
 
   handlePassword = (event) => { 
     this.setState({password : event.target.value})
-  }
+  };
 
   render() { 
     const {classes} = this.props; 
@@ -137,9 +152,8 @@ class Signup extends Component {
             {this.state.errors.name &&
 											_.values(this.state.errors.name)}
             </div>
-          
-
           </Grid>
+          
           <Grid item xs={12}>
             <TextField
               variant="outlined"
