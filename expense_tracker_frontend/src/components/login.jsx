@@ -13,6 +13,7 @@ import {  NavLink } from "react-router-dom";
 import Copyright from "./common/copyright";
 import Joi from "joi-browser"
 import _ from "lodash";
+import {authenticateUserService} from "../services/authService";
 
 
 const styles = theme => ({
@@ -56,7 +57,7 @@ class Login extends Component {
     password: Joi.string().min(2).max(255).required()
   };
 
-  validateFormDetails = (event) => { 
+  validateFormDetails = async (event) => { 
     event.preventDefault();
     const options = {abortEarly : false};
     const {error} = Joi.validate({ 
@@ -64,10 +65,21 @@ class Login extends Component {
        password : this.state.password
     }, this.schema,options);
 
-    console.log(error)
-
-    if(!error)
-      return this.props.history.push('/');
+    if(!error){
+      try { 
+        await authenticateUserService({email : this.state.email,
+            password : this.state.password});
+        return this.props.history.push('/');
+      } catch(error) { 
+          if (error.response && error.response.status === 400) {
+            const errors = { ...this.state.errors };
+            errors.email = error.response.data;
+            this.setState({ errors });
+            return;
+          }
+          return;
+      }
+    }
      
     const errors = { ...this.state.errors };
 

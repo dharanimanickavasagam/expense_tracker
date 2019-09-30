@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 require("express-async-errors");
-
+require("./startups/cors")(app);
 require("./startups/routes")(app);
 require("./startups/database")();
 require("./startups/logger")();

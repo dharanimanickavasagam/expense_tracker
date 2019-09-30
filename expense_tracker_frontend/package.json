@@ -15,6 +15,7 @@
         "enzyme-to-json": "^3.4.0",
         "font-awesome": "^4.7.0",
         "joi-browser": "^13.4.0",
+        "jwt-decode": "^2.2.0",
         "lodash": "^4.17.15",
         "material-table": "^1.50.0",
         "moment": "^2.24.0",

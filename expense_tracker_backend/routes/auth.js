@@ -12,7 +12,7 @@ router.use(express.json());
 router.post("/", async (req, res) => {
     const {
         error
-    } = authenticateUser(req.body);
+    } = validateUser(req.body);
 
     if (error)
         return res.status(400).send(error.details[0].message);
@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
 });
 
 
-function authenticateUser(user) {
+function validateUser(user) {
     const schema = {
         email: Joi.string().required().email(),
         password: Joi.string().min(2).max(255).required()
