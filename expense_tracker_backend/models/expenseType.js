@@ -19,6 +19,7 @@ const ExpenseType = mongoose.model('ExpenseType', expenseTypeSchema);
 
 function validateExpenseType(expenseType) {
     const schema = {
+        _id: Joi.string(),
         name: Joi.string().required(),
         need: Joi.string().required()
     }
