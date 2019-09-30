@@ -69,7 +69,7 @@ class Login extends Component {
       try { 
         await authenticateUserService({email : this.state.email,
             password : this.state.password});
-        return this.props.history.push('/');
+        return window.location = "/"
       } catch(error) { 
           if (error.response && error.response.status === 400) {
             const errors = { ...this.state.errors };
