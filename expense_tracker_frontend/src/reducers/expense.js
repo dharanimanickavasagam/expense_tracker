@@ -14,7 +14,7 @@ const expense = (state = initialState, action) => {
     switch (action.type) {
         case GET_EXPENSE:
 
-            if (_.isEqual(action.payload.sort(), state.expenses.sort())) {
+            if (_.isEqual(action.payload, state.expenses)){
                 return Object.assign({}, state, {
                     expenses: state.expenses
                 });
@@ -24,34 +24,23 @@ const expense = (state = initialState, action) => {
                 });
             }
             case ADD_EXPENSE: {
-
-                let id;
-                if (state.expenses.length === 0) {
-                    id = 1;
-
-                } else {
-                    id = state.expenses.slice(-1)[0].id + 1;
-
-                }
-
                 return Object.assign({}, state, {
                     expenses: state.expenses.concat({
-                        ...action.payload,
-                        id
+                        ...action.payload
                     })
                 });
             }
 
             case UPDATE_EXPENSE:
                 const {
-                    date, description, type, mode, amount, notes, id
+                    date, description, type, mode, amount, notes, _id
                 } = action.payload;
                 return {
                     ...state,
                     expenses: state.expenses.map((expense) =>
-                        expense.id === id ? {
+                        expense._id === _id ? {
                             ...expense,
-                            id,
+                            _id,
                             date,
                             description,
                             type,
@@ -63,11 +52,11 @@ const expense = (state = initialState, action) => {
                 };
 
             case DELETE_EXPENSE:
-                const toBeDeletedID = action.payload;
+                const toBeDeletedID = action.payload._id;
                 return {
                     ...state,
                     expenses: state.expenses.filter(
-                        expenseType => expenseType.id !== toBeDeletedID
+                        expenseType => expenseType._id !== toBeDeletedID
                     )
                 };
 

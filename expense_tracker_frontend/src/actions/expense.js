@@ -15,7 +15,6 @@ import {
 export const getExpense = () => {
     return function (dispatch) {
         return getExpenseService()
-            .then(response => response.data)
             .then(data => {
                 dispatch({
                     type: GET_EXPENSE,
@@ -28,35 +27,35 @@ export const getExpense = () => {
 export const addExpense = payload => {
     return function (dispatch) {
         return addExpenseService(payload)
-            .then(
+            .then( data => { 
                 dispatch({
                     type: ADD_EXPENSE,
-                    payload
+                    payload : data
                 })
-            )
+            })
     }
 }
 
 export const updateExpense = payload => {
     return function (dispatch) {
         return updateExpenseService(payload)
-            .then(
+            .then( data => { 
                 dispatch({
-                    type: UPDATE_EXPENSE,
-                    payload
-                })
-            )
+                type: UPDATE_EXPENSE,
+                payload : data
+            })
+        })
     }
 }
 
 export const deleteExpense = payload => {
     return function (dispatch) {
         return deleteExpenseService(payload)
-            .then(
+            .then( data => {
                 dispatch({
                     type: DELETE_EXPENSE,
-                    payload
+                    payload : data
                 })
-            )
+            })
     }
 }

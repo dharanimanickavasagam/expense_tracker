@@ -17,10 +17,11 @@ const MaterialExpenseTable = props => {
 		...props.expenseTypes.map(key => ({ [key]: key }))
 	);
 
+
 	const columns = [
 		{ title: "Date", field: "date", type: "date" },
-		{ title: "Description", field: "description" },
-		{ title: "Type", field: "type", lookup: lookUpType },
+		{ title: "Description", field: "name" },
+		{ title: "Type", field: "type", lookup : lookUpType},
 		{
 			title: "Mode",
 			field: "mode",
@@ -31,7 +32,7 @@ const MaterialExpenseTable = props => {
 	];
 
 	useEffect(() => {
-		console.log("State in redux store", data);
+		
 		const filter = data.map(datum => {
 			const del = _.omit(datum, ["tableData"]);
 			return del;
@@ -45,6 +46,8 @@ const MaterialExpenseTable = props => {
 	});
 
 	return (
+		
+
 		<MaterialTable
 			style={{ margin: "10px" }}
 			title="Expenses"
@@ -70,7 +73,7 @@ const MaterialExpenseTable = props => {
 							const data = [...state.data];
 							data.splice(data.indexOf(oldData), 1);
 							setState({ ...state, data });
-							props.deleteExpense(oldData.id);
+							props.deleteExpense(oldData._id);
 						}, 600);
 					})
 			}}
