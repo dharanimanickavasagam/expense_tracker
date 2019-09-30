@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import Chart from "./chart";
 import ExpenseType from "./expenseType";
 import Dashboard from "./dashboard";
+import Login from "./login";
 import NotFound from "./notFound";
 import { Switch, Redirect, Route, NavLink } from "react-router-dom";
 import Income from "./income";
+import SignUp from "./signup";
+import Logout from "./logout"
 
 class Navbar extends Component {
 	render() {
@@ -43,14 +46,29 @@ class Navbar extends Component {
 									Chart
 								</NavLink>
 							</li>
+
+							<li className="nav-item">
+								<NavLink to={"/logout"} className="nav-link">
+									Logout
+								</NavLink>
+							</li>
+
+							<li className="nav-item">
+								<NavLink to={"/login"} className="nav-link">
+									Login
+								</NavLink>
+							</li>
 						</ul>
 					</div>
 				</nav>
 
 				<Switch>
+					<Route path="/login" component={Login} />
+					<Route path="/signup" component={SignUp} />
 					<Route path="/income" component={Income} />
 					<Route path="/expenseType" component={ExpenseType} />
 					<Route path="/chart" component={Chart} />
+					<Route path="/logout" component={Logout} />
 					<Route exact path="/" component={Dashboard} />
 					<Route path="/not-found" component={NotFound} />
 					<Redirect to="/not-found" component={NotFound} />
