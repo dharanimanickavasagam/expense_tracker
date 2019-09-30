@@ -26,10 +26,12 @@ const Income = mongoose.model('Income', incomeSchema);
 //3. Joi validator 
 function validateIncome(income) {
     const schema = {
+        _id : Joi.string(),
         date: Joi.date().required(),
         payer: Joi.string().min(2).required(),
         income: Joi.number().required(),
-        notes: Joi.any()
+        notes: Joi.any(),
+        __v :Joi.number()
     }
 
     return Joi.validate(income, schema);

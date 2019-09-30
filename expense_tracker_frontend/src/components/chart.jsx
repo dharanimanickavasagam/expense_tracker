@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { VictoryPie, VictoryTooltip } from "victory";
+import { VictoryPie} from "victory";
 import { connect } from "react-redux";
 import { getExpense } from "../actions/expense";
 import { getIncome } from "../actions/income";

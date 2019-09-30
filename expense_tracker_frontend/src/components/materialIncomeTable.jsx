@@ -7,8 +7,9 @@ import {
 	deleteIncome,
 	updateIncome
 } from "../actions/income";
+import momemt from "moment";
+import _ from "lodash"
 
-import _ from "lodash";
 
 class MaterialIncomeTable extends Component {
 	state = {
@@ -32,10 +33,13 @@ class MaterialIncomeTable extends Component {
 
 	componentDidUpdate = prevProps => {
 		if (this.props.income !== prevProps.income) {
+			console.log(this.props.income)
+			console.log(prevProps.income);
 			this.getTableData();
 			getIncome();
 		}
 	};
+
 	render() {
 		return (
 			<MaterialTable
@@ -49,19 +53,22 @@ class MaterialIncomeTable extends Component {
 								resolve();
 								const data = [...this.state.data];
 								data[data.indexOf(oldData)] = newData;
+								const updateData = _.omit(newData, "tableData");
 								this.setState({ data });
-								this.props.updateIncome(newData);
+								this.props.updateIncome(updateData);
 							}, 600);
 						}),
+
 					onRowDelete: oldData =>
-						new Promise(resolve => {
-							setTimeout(() => {
-								resolve();
-								const data = [...this.state.data];
-								data.splice(data.indexOf(oldData), 1);
-								this.setState({ data });
-								this.props.deleteIncome(oldData.id);
-							}, 600);
+					new Promise(resolve => {
+						setTimeout(() => {
+							resolve();
+							const data = [...this.state.data];
+							data.splice(data.indexOf(oldData), 1);
+							this.setState({data})
+							console.log("oldData",oldData)
+							this.props.deleteIncome(oldData._id);
+						}, 600);
 						})
 				}}
 			/>

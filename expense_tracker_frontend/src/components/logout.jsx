@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {removeJsonWebToken} from "../services/authService"; 
 
 const Logout = (props) => {

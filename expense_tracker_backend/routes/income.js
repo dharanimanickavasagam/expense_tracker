@@ -10,13 +10,11 @@ const {
 
 const router = express.Router();
 router.use(express.json());
-router.use(auth);
-
-
+//router.use(auth);
 
 //get request for income 
 router.get("/", async (req, res) => {
-    const income = await Income.find();
+    const income = await Income.find().select("-__v");
     res.send(income);
 });
 

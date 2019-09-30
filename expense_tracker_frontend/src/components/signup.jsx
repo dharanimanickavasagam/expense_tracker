@@ -51,10 +51,7 @@ class Signup extends Component {
     password:"",
     errors: {}
   }
-  constructor (props){
-    super(props)
-  }
-
+  
   schema = { 
     name: Joi.string().required(),
     email: Joi.string().required().email(),
@@ -74,9 +71,11 @@ class Signup extends Component {
 
     if(!error) { 
       try { 
-        const response =  await addUserService({ name : this.state.name,name : this.state.name,
-        email : this.state.email, 
-        password : this.state.password})
+        await addUserService({ 
+          name : this.state.name,
+          email : this.state.email, 
+          password : this.state.password
+        })
         return this.props.history.push('/login'); 
       }catch(error) { 
         if (error.response && error.response.status === 400) {
