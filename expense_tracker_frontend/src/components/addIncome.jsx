@@ -123,6 +123,7 @@ class AddIncome extends Component {
 		const date = Date.now();
 		return moment(date).format("MM/DD/YYYY");
 	}
+	
 	handleFocus = () => {
 		this.setState({ errors: {} });
 	};
@@ -268,7 +269,6 @@ class AddIncome extends Component {
 
 								<FormControl>
 									<TextareaAutosize
-										fullWidth
 										aria-label="minimum height"
 										rows={3}
 										placeholder="Notes"

@@ -14,6 +14,7 @@ const income = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_INCOME:
+            
             if (_.isEqual(action.payload.sort(), state.income.sort())) {
                 return Object.assign({}, state, {
                     income: state.income
@@ -25,39 +26,32 @@ const income = (state = initialState, action) => {
             }
 
             case ADD_INCOME: {
-                console.log(action.payload, " in reducer");
-
-                let id;
-                if (state.income.length === 0) {
-                    id = 1;
-                } else {
-                    id = state.income.slice(-1)[0].id + 1;
-                }
+               
                 return Object.assign({}, state, {
                     income: state.income.concat({
-                        ...action.payload,
-                        id
+                        ...action.payload
                     })
                 })
             }
 
             case DELETE_INCOME:
-                const toBeDeletedID = action.payload;
+                   
+                const toBeDeletedID = action.payload._id;
                 return {
                     ...state,
-                    income: state.income.filter(inc => inc.id !== toBeDeletedID)
+                    income: state.income.filter(inc => inc._id !== toBeDeletedID)
                 };
 
             case UPDATE_INCOME:
                 const {
-                    date, payer, income, notes, id
+                    date, payer, income, notes, _id
                 } = action.payload;
                 return {
                     ...state,
                     income: state.income.map((inc) =>
-                        inc.id === id ? {
+                        inc._id === _id ? {
                             ...income,
-                            id,
+                            _id,
                             date,
                             payer,
                             income,
