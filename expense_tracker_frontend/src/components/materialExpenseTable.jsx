@@ -60,8 +60,8 @@ const MaterialExpenseTable = props => {
 							resolve();
 							const data = [...state.data];
 							data[data.indexOf(oldData)] = newData;
-							setState({ ...state, data });
 							const updateData = _.omit(newData, "tableData");
+							setState({ ...state, data });
 							props.updateExpense(updateData);
 						}, 600);
 					}),

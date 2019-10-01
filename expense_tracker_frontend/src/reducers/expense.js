@@ -14,7 +14,9 @@ const expense = (state = initialState, action) => {
     switch (action.type) {
         case GET_EXPENSE:
 
-            if (_.isEqual(action.payload, state.expenses)){
+            const stateExpensesWithoutTableData = state.expenses.map(ex => _.omit(ex, "tableData"))
+            
+            if (_.isEqual(action.payload, stateExpensesWithoutTableData)){
                 return Object.assign({}, state, {
                     expenses: state.expenses
                 });
@@ -33,7 +35,7 @@ const expense = (state = initialState, action) => {
 
             case UPDATE_EXPENSE:
                 const {
-                    date, description, type, mode, amount, notes, _id
+                    date, name, type, mode, amount, notes, _id
                 } = action.payload;
                 return {
                     ...state,
@@ -42,7 +44,7 @@ const expense = (state = initialState, action) => {
                             ...expense,
                             _id,
                             date,
-                            description,
+                            name,
                             type,
                             mode,
                             amount,
@@ -52,13 +54,13 @@ const expense = (state = initialState, action) => {
                 };
 
             case DELETE_EXPENSE:
-                const toBeDeletedID = action.payload._id;
+               { const toBeDeletedID = action.payload._id;
                 return {
                     ...state,
                     expenses: state.expenses.filter(
                         expenseType => expenseType._id !== toBeDeletedID
                     )
-                };
+                };}
 
             default:
                 return state;
