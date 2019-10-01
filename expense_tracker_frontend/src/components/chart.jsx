@@ -1,188 +1,87 @@
-import React, { Component } from "react";
-import { VictoryPie} from "victory";
-import { connect } from "react-redux";
-import { getExpense } from "../actions/expense";
-import { getIncome } from "../actions/income";
-import _ from "lodash";
-import { withStyles } from "@material-ui/core/styles";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import Button from "@material-ui/core/Button";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import React from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import ChartModes from "./chartModes";
+import Income from "./chart/income";
+import Savings from "./chart/savings";
+import Expense from "./chart/expense";
+import ExpenseMode from "./chart/expenseMode"
 
-const styles = theme => ({
-	list: {
-		width: 250
-	},
-	fullList: {
-		width: "auto"
-	}
-});
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: 'flex',
+  },
+  content: {
+    flexGrow: 1,
+    height: '100vh',
+    overflow: 'auto',
+  },
+  container: {
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+  },
+  fixedHeight: {
+    height: 200,
+  },
+}));
 
-class Chart extends Component {
-	state = {
-		drawerToggle: false,
-		type: "income"
-	};
+export default function Chart() {
+  const classes = useStyles();
+  
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-	componentDidUpdate() {
-		this.displayChartByExpenseType();
-		this.displayChartByIncomeVsExpense();
-		getExpense();
-	}
+  return (
+    <div className={classes.root}>
+     
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container spacing={3}>
+          <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <ChartModes />
+              </Paper>
+            </Grid>
+           
+            {/* Income */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                  <Income />
+              </Paper>
+            </Grid>
 
-	handleToggle = () => {
-		const stateToChange = !this.state.drawerToggle;
-		this.setState({ drawerToggle: stateToChange });
-	};
+            {/* Expense */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                <Expense />
+              </Paper>
+            </Grid>
 
-	displayChartByExpenseType = () => {
-		const sampleData = [];
-		const expenses = this.props.expenses;
-		const expenseTypes = expenses.map(expense => expense.type);
-		const chartData = _.countBy(expenseTypes);
-		for (let i in chartData) {
-			sampleData.push({ x: i, y: chartData[i] });
-		}
-		return sampleData;
-	};
+            {/* Savings */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                  <Savings />
+              </Paper>
+            </Grid>
 
-	displayChartByIncomeVsExpense = () => {
-		const sampleData = [];
-		const expenses = this.props.expenses;
-		const income = this.props.income;
-		if (!expenses) return;
-		const expenseAmount = expenses.map(expense => _.parseInt(expense.amount));
-		const expenseObj = { Expense: _.sum(expenseAmount) };
+            {/* Expense Mode */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper className={fixedHeightPaper}>
+                <ExpenseMode />
+              </Paper>
+            </Grid>
 
-		if (!income) return;
-		const incomeAmount = income.map(inc => _.parseInt(inc.income));
-		const incomeObj = { Income: _.sum(incomeAmount) };
-		const sampleDataObj = Object.assign(expenseObj, incomeObj);
-
-		for (let i in sampleDataObj) {
-			sampleData.push({ x: i, y: sampleDataObj[i] });
-		}
-
-		return sampleData;
-	};
-
-	displayChartByExpenseMode = () => {
-		const sampleData = [];
-		const expenses = this.props.expenses;
-		if (!expenses) return;
-		const expenseModes = expenses.map(expense => expense.mode);
-		const chartData = _.countBy(expenseModes);
-		for (let i in chartData) {
-			sampleData.push({ x: i, y: chartData[i] });
-		}
-		return sampleData;
-	};
-
-	handleListItem = text => {
-		switch (text) {
-			case "Income Vs Expense":
-				this.handleToggle();
-				this.setState({ type: "income" });
-				break;
-
-			case "Expense Type":
-				this.handleToggle();
-				this.setState({ type: "expenseType" });
-				break;
-
-			case "Expense Mode":
-				this.handleToggle();
-				this.setState({ type: "mode" });
-				break;
-
-			default:
-				return;
-		}
-	};
-
-	handleChartData = chartState => {
-		if (this.state.type === "income")
-			return this.displayChartByIncomeVsExpense();
-		else if (this.state.type === "expenseType")
-			return this.displayChartByExpenseType();
-		else return this.displayChartByExpenseMode();
-	};
-
-	sideList = classes => (
-		<div role="presentation">
-			<List>
-				{["Income Vs Expense", "Expense Type", "Expense Mode"].map(
-					(text, index) => (
-						<ListItem button key={index}>
-							<ListItemText
-								primary={text}
-								onClick={() => this.handleListItem(text)}
-							/>
-						</ListItem>
-					)
-				)}
-			</List>
-		</div>
-	);
-
-	handleClick = datum => {
-		console.log("Clicked", datum);
-	};
-
-	render() {
-		const classes = this.props;
-
-		return (
-			<>
-				<div>
-					<SwipeableDrawer
-						open={this.state.drawerToggle}
-						onClose={this.handleToggle}
-						onOpen={this.handleToggle}
-					>
-						{this.sideList(classes)}
-					</SwipeableDrawer>
-				</div>
-
-				<div style={{ textAlign: "center" }}>
-					<svg width={500} height={500}>
-						<VictoryPie
-							data={this.handleChartData(this.state.type)}
-							standalone={false}
-							colorScale={["red", "navy", "gray", "gold", "green"]}
-							animate={{
-								duration: 2000
-							}}
-						/>
-					</svg>
-
-					<div>
-						<Button color="secondary" onClick={this.handleToggle}>
-							Choose Display Modes
-						</Button>
-					</div>
-				</div>
-			</>
-		);
-	}
+          </Grid>
+        </Container>
+        
+    
+    </div>
+  );
 }
-const mapStateToProps = state => {
-	return {
-		expenses: state.expense.expenses,
-		income: state.income.income
-	};
-};
-
-const mapDispatchToProps = dispatch => {
-	return {
-		getIncome: dispatch(getIncome()),
-		getExpense: dispatch(getExpense())
-	};
-};
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(withStyles(styles)(Chart));

@@ -101,6 +101,7 @@ class Navbar extends Component {
 				</nav>
 
 				<Switch>
+					
 					<Route path="/login" component={Login} />
 					<Route path="/signup" component={SignUp} />
 					
