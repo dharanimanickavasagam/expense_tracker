@@ -53,14 +53,14 @@ const expense = (state = initialState, action) => {
                     )
                 };
 
-            case DELETE_EXPENSE:
-               { const toBeDeletedID = action.payload._id;
+            case DELETE_EXPENSE:{
+                const toBeDeletedID = action.payload._id;
                 return {
                     ...state,
                     expenses: state.expenses.filter(
                         expenseType => expenseType._id !== toBeDeletedID
                     )
-                };}
+                }}
 
             default:
                 return state;

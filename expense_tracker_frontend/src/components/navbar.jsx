@@ -101,15 +101,40 @@ class Navbar extends Component {
 				<Switch>
 					<Route path="/login" component={Login} />
 					<Route path="/signup" component={SignUp} />
-					<Route path="/income" component={Income} />
-					<Route path="/expenseType" component={ExpenseType} />
-					<Route path="/chart" component={Chart} />
-					<Route path="/signup" component={SignUp} />
+					<Route path="/income" 
+						render = {props => {
+							if(!user) return <Redirect to="/login" />
+							return <Income {...props} />
+						}} />
+
+					<Route path="/expenseType" 
+					render = {props => {
+						if(!user) return <Redirect to="/login" />
+						return <ExpenseType {...props} />
+					}}  />
+
+					<Route path="/chart" 
+					render = {props => {
+						if(!user) return <Redirect to="/login" />
+						return <Chart {...props} />
+					}}  />
+
 					<Route path="/logout" component={Logout} />
-					<Route path="/admin" component={Admin} />
-					<Route exact path="/" component={Dashboard} />
+
+					<Route path="/admin" render = {props => {
+							if(!user) return <Redirect to="/login" />
+							if (user && userDetails.isAdmin) return <Admin {...props} />
+							return <Redirect to ="/not-found" />
+					}}  />
+
+					<Route exact path="/" render = {props => {
+						if(!user) return <Redirect to="/login" />
+						return <Dashboard {...props} />
+					}} />
+
 					<Route path="/not-found" component={NotFound} />
 					<Redirect to="/not-found" component={NotFound} />
+
 				</Switch>
 			</React.Fragment>
 		);
