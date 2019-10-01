@@ -11,6 +11,8 @@ import Logout from "./logout";
 import Admin from "./admin";
 import {getJsonWebToken} from "../services/authService";
 import jwtDecode from "jwt-decode";
+import ProtectedRoute from "./common/protectedRoute";
+import ProtectedAdminRoute from "./common/protectedAdminRoute";
 
 class Navbar extends Component {
 
@@ -101,36 +103,15 @@ class Navbar extends Component {
 				<Switch>
 					<Route path="/login" component={Login} />
 					<Route path="/signup" component={SignUp} />
-					<Route path="/income" 
-						render = {props => {
-							if(!user) return <Redirect to="/login" />
-							return <Income {...props} />
-						}} />
-
-					<Route path="/expenseType" 
-					render = {props => {
-						if(!user) return <Redirect to="/login" />
-						return <ExpenseType {...props} />
-					}}  />
-
-					<Route path="/chart" 
-					render = {props => {
-						if(!user) return <Redirect to="/login" />
-						return <Chart {...props} />
-					}}  />
-
+					
+					<ProtectedRoute path="/income" component={Income} />
+					<ProtectedRoute path="/expenseType" component={ExpenseType} />
+					<ProtectedRoute path="/chart" component={Chart} />
+					
 					<Route path="/logout" component={Logout} />
 
-					<Route path="/admin" render = {props => {
-							if(!user) return <Redirect to="/login" />
-							if (user && userDetails.isAdmin) return <Admin {...props} />
-							return <Redirect to ="/not-found" />
-					}}  />
-
-					<Route exact path="/" render = {props => {
-						if(!user) return <Redirect to="/login" />
-						return <Dashboard {...props} />
-					}} />
+					<ProtectedAdminRoute path="/admin" component={Admin} />
+					<ProtectedRoute exact path="/" component={Dashboard} />
 
 					<Route path="/not-found" component={NotFound} />
 					<Redirect to="/not-found" component={NotFound} />
