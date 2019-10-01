@@ -8,21 +8,26 @@ import NotFound from "./notFound";
 import Income from "./income";
 import SignUp from "./signup";
 import Logout from "./logout";
+import Admin from "./admin";
 import {getJsonWebToken} from "../services/authService";
+import jwtDecode from "jwt-decode";
 
 class Navbar extends Component {
 
-	
 	render() {
-	const user = getJsonWebToken(); 
-	console.log("user",user);
+		const user = getJsonWebToken();
+		let userDetails; 
+		if(user) { 
+			userDetails = jwtDecode(user);
+		}
 	
 		return (
 			<React.Fragment>
 				<nav className="navbar navbar-expand-lg navbar-light bg-light">
-					{user && < NavLink to={"/"} className="navbar-brand">
+					{
+						user && < NavLink to={"/"} className="navbar-brand">
 						Expense
-					</NavLink> 
+						</NavLink> 
 					}
 
 					<button
@@ -33,7 +38,7 @@ class Navbar extends Component {
 						aria-controls="navbarSupportedContent"
 						aria-expanded="false"
 						aria-label="Toggle navigation"
-					></button>
+					/>
 
 					<div className="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul className="navbar-nav mr-auto">
@@ -68,15 +73,28 @@ class Navbar extends Component {
 								</NavLink>
 							}
 							</li>
-
 							<li className="nav-item">
+							{
+								user && userDetails.isAdmin &&<NavLink to={"/admin"} className="nav-link">
+									Admin Page
+								</NavLink>
+							}
+							</li>
+						</ul>
+						<span className="navbar-text">
+							{
+								user && <NavLink to ={"/"} className="nav-link">
+									Welcome {userDetails.name}
+								</NavLink>
+							}
+    					</span>
+						<span className="navbar-text"> 
 							{
 								user &&<NavLink to={"/logout"} className="nav-link">
 									Logout
 								</NavLink>
 							}
-							</li>
-						</ul>
+						</span>
 					</div>
 				</nav>
 
@@ -88,6 +106,7 @@ class Navbar extends Component {
 					<Route path="/chart" component={Chart} />
 					<Route path="/signup" component={SignUp} />
 					<Route path="/logout" component={Logout} />
+					<Route path="/admin" component={Admin} />
 					<Route exact path="/" component={Dashboard} />
 					<Route path="/not-found" component={NotFound} />
 					<Redirect to="/not-found" component={NotFound} />

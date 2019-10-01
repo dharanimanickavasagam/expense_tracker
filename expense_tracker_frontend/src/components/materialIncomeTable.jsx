@@ -7,7 +7,6 @@ import {
 	deleteIncome,
 	updateIncome
 } from "../actions/income";
-import momemt from "moment";
 import _ from "lodash"
 
 
@@ -41,7 +40,7 @@ class MaterialIncomeTable extends Component {
 	render() {
 		return (
 			<MaterialTable
-				title="Manage Income"
+				title="Income"
 				columns={this.state.columns}
 				data={this.state.data}
 				editable={{

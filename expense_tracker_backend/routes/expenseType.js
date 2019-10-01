@@ -4,7 +4,11 @@ const {
     ExpenseType,
     validateExpenseType
 } = require("../models/expenseType");
+const {
+    auth
+} = require("../middleware/auth");
 router.use(express.json());
+router.use(auth);
 
 //get request 
 router.get("/", async (req, res) => {
