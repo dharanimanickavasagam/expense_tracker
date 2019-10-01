@@ -1,13 +1,14 @@
 import http from "../httpAxiosModule/httpAxiosModule";
 import config from "../config.json";
 
+
 // authenticate user 
 export const authenticateUserService = async (user) => { 
     const {data : jwt} = await http.post( config.apiEndPoint + "/auth" , user);
     localStorage.setItem("Token",jwt);
 }
 
-// get the jwt of user 
+// get the jwt of user - login
 export const getJsonWebToken = () => { 
     return localStorage.getItem("Token");
 }

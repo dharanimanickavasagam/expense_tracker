@@ -10,7 +10,7 @@ const {
 
 const router = express.Router();
 router.use(express.json());
-//router.use(auth);
+router.use(auth);
 
 //get request for income 
 router.get("/", async (req, res) => {

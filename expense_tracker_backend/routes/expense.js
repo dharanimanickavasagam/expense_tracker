@@ -4,10 +4,13 @@ const {
     Expense,
     validateExpense
 } = require("../models/expense");
-
+const {
+    auth
+} = require("../middleware/auth");
 
 
 router.use(express.json());
+router.use(auth);
 
 //create objects with the Expense class and write the restful services with express
 

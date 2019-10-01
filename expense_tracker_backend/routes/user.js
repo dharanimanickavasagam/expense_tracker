@@ -52,7 +52,9 @@ router.post("/", async (req, res) => {
     user = await user.save();
 
     const token = user.generateAuthToken();
-    res.header("x-auth-token", token).send(user);
+    res.header("x-auth-token", token)
+    .header("access-control-expose-headers","x-auth-token")
+    .send(user);
 });
 
 module.exports = router;
