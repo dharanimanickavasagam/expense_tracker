@@ -33,8 +33,6 @@ class MaterialIncomeTable extends Component {
 
 	componentDidUpdate = prevProps => {
 		if (this.props.income !== prevProps.income) {
-			console.log(this.props.income)
-			console.log(prevProps.income);
 			this.getTableData();
 			getIncome();
 		}
@@ -53,8 +51,8 @@ class MaterialIncomeTable extends Component {
 								resolve();
 								const data = [...this.state.data];
 								data[data.indexOf(oldData)] = newData;
-								const updateData = _.omit(newData, "tableData");
 								this.setState({ data });
+								const updateData = _.omit(newData, "tableData");
 								this.props.updateIncome(updateData);
 							}, 600);
 						}),
@@ -66,7 +64,6 @@ class MaterialIncomeTable extends Component {
 							const data = [...this.state.data];
 							data.splice(data.indexOf(oldData), 1);
 							this.setState({data})
-							console.log("oldData",oldData)
 							this.props.deleteIncome(oldData._id);
 						}, 600);
 						})

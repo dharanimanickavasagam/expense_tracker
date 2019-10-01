@@ -38,9 +38,10 @@ export const addIncome = (payload) => {
 export const updateIncome = (payload) => {
     return function (dispatch) {
         return updateIncomeService(payload)
-            .then( data => {dispatch({
-                type: UPDATE_INCOME,
-                payload : data
+            .then(data => {
+                dispatch({
+                    type: UPDATE_INCOME,
+                    payload : data
             })
         })
     }

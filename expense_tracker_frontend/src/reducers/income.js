@@ -14,8 +14,9 @@ const income = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_INCOME:
+            const stateIncomeWithoutTableData = state.income.map(inc => _.omit(inc, "tableData"));
             
-            if (_.isEqual(action.payload.sort(), state.income.sort())) {
+            if (_.isEqual(action.payload, stateIncomeWithoutTableData)) {
                 return Object.assign({}, state, {
                     income: state.income
                 });
@@ -26,7 +27,7 @@ const income = (state = initialState, action) => {
             }
 
             case ADD_INCOME: {
-               
+          
                 return Object.assign({}, state, {
                     income: state.income.concat({
                         ...action.payload
@@ -42,7 +43,7 @@ const income = (state = initialState, action) => {
                     income: state.income.filter(inc => inc._id !== toBeDeletedID)
                 };
 
-            case UPDATE_INCOME:
+            case UPDATE_INCOME:{
                 const {
                     date, payer, income, notes, _id
                 } = action.payload;
@@ -59,7 +60,8 @@ const income = (state = initialState, action) => {
                         } : income
                     )
                 };
-
+            }
+            
             default:
                 return state;
     }
