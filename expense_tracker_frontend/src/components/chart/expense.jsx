@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import Typography from '@material-ui/core/Typography';
+import {Link} from "react-router-dom"
 
 class Expense extends Component {
     state = {  }
@@ -11,9 +12,15 @@ class Expense extends Component {
                 Expense 
             </Typography>
    
-            <Typography component="center" variant="h4">
+            <Typography component="center" variant="h4" style={{flex : "1"}}>
              $ {this.props.totalExpense}
             </Typography>
+
+            <div>
+                <Link style={{color : "#3f51b5"}} to={"/"}>
+                    View Expense
+                </Link>
+            </div>
             </>
          );
     }

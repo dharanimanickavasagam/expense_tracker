@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   fixedHeight: {
     height: 200,
-  },
+  }
 }));
 
 export default function Chart() {
@@ -50,28 +50,24 @@ export default function Chart() {
               </Paper>
             </Grid>
            
-            {/* Income */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                   <Income />
               </Paper>
             </Grid>
 
-            {/* Expense */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <Expense />
               </Paper>
             </Grid>
 
-            {/* Savings */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                   <Savings />
               </Paper>
             </Grid>
 
-            {/* Expense Mode */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <ExpenseMode />

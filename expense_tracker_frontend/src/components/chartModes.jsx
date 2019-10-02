@@ -11,13 +11,21 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
+const drawerWidth = 240;
 const styles = theme => ({
 	list: {
 		width: 250
 	},
 	fullList: {
 		width: "auto"
+	},
+	drawer: {
+		position: 'relative',
+		whiteSpace: 'nowrap',
+		width: 300,
+		flexGrow : 1
 	}
+ 
 });
 
 class ChartModes extends Component {
@@ -133,11 +141,12 @@ class ChartModes extends Component {
 
 	render() {
 		const {classes} = this.props;
+		console.log(classes)
 
 		return (
 			<>
 				<div>
-					<SwipeableDrawer
+					<SwipeableDrawer className={classes.drawer}
 						open={this.state.drawerToggle}
 						onClose={this.handleToggle}
 						onOpen={this.handleToggle}

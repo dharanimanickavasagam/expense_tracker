@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
+import {Link} from "react-router-dom"
 import Typography from '@material-ui/core/Typography';
 
 class Income extends Component {
@@ -12,9 +13,16 @@ class Income extends Component {
                 Income
             </Typography>
    
-            <Typography component="center" variant="h4">
+            <Typography component="center" variant="h4" style={{flex : "1"}}>
               $ {this.props.totalIncome}
             </Typography>
+            
+
+            <div>
+                <Link style={{color : "#3f51b5"}} to={"/income"}>
+                    View Income
+                </Link>
+            </div>
             </>
          );
     }
