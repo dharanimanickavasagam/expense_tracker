@@ -13,6 +13,7 @@ import {getJsonWebToken} from "../services/authService";
 import jwtDecode from "jwt-decode";
 import ProtectedRoute from "./common/protectedRoute";
 import ProtectedAdminRoute from "./common/protectedAdminRoute";
+import MaterialIncomeTable from "./materialIncomeTable";
 
 class Navbar extends Component {
 
@@ -105,7 +106,7 @@ class Navbar extends Component {
 					<Route path="/login" component={Login} />
 					<Route path="/signup" component={SignUp} />
 					
-					<ProtectedRoute path="/income" component={Income} />
+					<ProtectedRoute path="/income" component={MaterialIncomeTable} />
 					<ProtectedRoute path="/expenseType" component={ExpenseType} />
 					<ProtectedRoute path="/chart" component={Chart} />
 					
