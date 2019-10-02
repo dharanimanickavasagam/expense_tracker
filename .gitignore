@@ -4,6 +4,7 @@ expense_tracker_frontend/.vscode/settings.json
 expense_tracker_frontend/yarn-error.log
 expense_tracker_frontend/api/seed.json
 expense_tracker_frontend/yarn.lock
+expense_tracker_frontend/build
 
 expense_tracker_backend/node_modules
 expense_tracker_backend/yarn.lock

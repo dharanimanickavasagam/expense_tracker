@@ -77,6 +77,12 @@ const MaterialExpenseTable = props => {
 						}, 600);
 					})
 			}}
+			options={{
+				headerStyle: {
+				  backgroundColor: '#3f51b5',
+				  color: '#FFF'
+				}
+			  }}
 		/>
 	);
 };

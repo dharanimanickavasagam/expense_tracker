@@ -12,7 +12,7 @@ import AddExpense from "./addExpense";
 import AddIncome from "./addIncome";
 import DrawerToggle from "./common/drawerToggle";
 import MaterialExpenseTable from "./materialExpenseTable";
-import styled from "styled-components";
+import LeftAnchorDrawer from "./common/styledDrawer";
 
 const styles = theme => ({
 	root: {
@@ -21,12 +21,6 @@ const styles = theme => ({
 		backgroundColor: theme.palette.background.paper
 	}
 });
-
-const StyledDrawer = styled(Drawer)`
-	.MuiDrawer-paperAnchorLeft {
-		right: 80%;
-	}
-`;
 
 class Dashboard extends Component {
 	state = {
@@ -84,17 +78,13 @@ class Dashboard extends Component {
 							</Button>
 						</Drawer>
 
-						<StyledDrawer open={this.state.incomeDrawToggle}>
-							<AddIncome />
-							<Button
-								label="Toggle Income"
-								onClick={() => this.handleToggle("incomeDrawToggle")}
-							>
-								Close
-							</Button>
-						</StyledDrawer>
+						<LeftAnchorDrawer  open={this.state.incomeDrawToggle} 
+							component={< AddIncome />} label={"Toggle Income"} 
+							onClick={() => this.handleToggle("incomeDrawToggle")}
+							buttonName={"Close"} />
 					</div>
 				</div>
+				
 				<div className="col-10 tableSection">
 					{/* <ExpenseTable /> */}
 					<MaterialExpenseTable />
