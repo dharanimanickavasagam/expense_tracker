@@ -51,8 +51,6 @@ class MaterialIncomeTable extends Component {
 		}
 	};
 	 
-
-
 	render() {
 		
 		return (

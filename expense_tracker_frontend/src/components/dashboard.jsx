@@ -84,9 +84,8 @@ class Dashboard extends Component {
 							buttonName={"Close"} />
 					</div>
 				</div>
-				
+
 				<div className="col-10 tableSection">
-					{/* <ExpenseTable /> */}
 					<MaterialExpenseTable />
 				</div>
 			</div>
