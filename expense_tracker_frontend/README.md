@@ -1,4 +1,4 @@
-This is an expense tracker under development. The tracker uses React with Redux. 
+This is an expense tracker under development. The front end of the tracker uses React with Redux. 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
