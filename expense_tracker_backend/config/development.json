@@ -1,6 +1,0 @@
-{ 
-    "name" : "Development mode",
-    "mail" : { 
-        "host" : "dev-mail-server"
-    }
-}

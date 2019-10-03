@@ -1,4 +1,0 @@
-{
-    "jwtPrivateKey": "",
-    "database" : "mongodb://localhost/ExpenseTracker"
-}
