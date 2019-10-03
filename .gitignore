@@ -1,0 +1,15 @@
+expense_tracker_frontend/node_modules
+expense_tracker_frontend/coverage
+expense_tracker_frontend/.vscode/settings.json
+expense_tracker_frontend/yarn-error.log
+expense_tracker_frontend/api/seed.json
+expense_tracker_frontend/yarn.lock
+expense_tracker_frontend/build
+
+expense_tracker_backend/node_modules
+expense_tracker_backend/yarn.lock
+expense_tracker_backend/yarn-error.log
+expense_tracker_backend/package-lock.json
+expense_tracker_backend/errorLog.log
+expense_tracker_backend/yarn.lock
+expense_tracker_backend/coverage
