@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/.github.io/expense_tracker/static/css/main.47bc30d2.chunk.css",
-    "main.js": "/.github.io/expense_tracker/static/js/main.c7ebc09a.chunk.js",
-    "main.js.map": "/.github.io/expense_tracker/static/js/main.c7ebc09a.chunk.js.map",
-    "runtime~main.js": "/.github.io/expense_tracker/static/js/runtime~main.3e2f811a.js",
-    "runtime~main.js.map": "/.github.io/expense_tracker/static/js/runtime~main.3e2f811a.js.map",
-    "static/css/2.adbfecdd.chunk.css": "/.github.io/expense_tracker/static/css/2.adbfecdd.chunk.css",
-    "static/js/2.eda22778.chunk.js": "/.github.io/expense_tracker/static/js/2.eda22778.chunk.js",
-    "static/js/2.eda22778.chunk.js.map": "/.github.io/expense_tracker/static/js/2.eda22778.chunk.js.map",
-    "index.html": "/.github.io/expense_tracker/index.html",
-    "precache-manifest.ca317cd1ff5bae58bc9464d445a42188.js": "/.github.io/expense_tracker/precache-manifest.ca317cd1ff5bae58bc9464d445a42188.js",
-    "service-worker.js": "/.github.io/expense_tracker/service-worker.js",
-    "static/css/2.adbfecdd.chunk.css.map": "/.github.io/expense_tracker/static/css/2.adbfecdd.chunk.css.map",
-    "static/css/main.47bc30d2.chunk.css.map": "/.github.io/expense_tracker/static/css/main.47bc30d2.chunk.css.map",
-    "static/media/font-awesome.css": "/.github.io/expense_tracker/static/media/fontawesome-webfont.fee66e71.woff"
+    "main.css": "/expense_tracker/static/css/main.47bc30d2.chunk.css",
+    "main.js": "/expense_tracker/static/js/main.b192fd3e.chunk.js",
+    "main.js.map": "/expense_tracker/static/js/main.b192fd3e.chunk.js.map",
+    "runtime~main.js": "/expense_tracker/static/js/runtime~main.d0b14120.js",
+    "runtime~main.js.map": "/expense_tracker/static/js/runtime~main.d0b14120.js.map",
+    "static/css/2.9de3fc7f.chunk.css": "/expense_tracker/static/css/2.9de3fc7f.chunk.css",
+    "static/js/2.384e7d3a.chunk.js": "/expense_tracker/static/js/2.384e7d3a.chunk.js",
+    "static/js/2.384e7d3a.chunk.js.map": "/expense_tracker/static/js/2.384e7d3a.chunk.js.map",
+    "index.html": "/expense_tracker/index.html",
+    "precache-manifest.cba1546da3620b45ab215675eac21780.js": "/expense_tracker/precache-manifest.cba1546da3620b45ab215675eac21780.js",
+    "service-worker.js": "/expense_tracker/service-worker.js",
+    "static/css/2.9de3fc7f.chunk.css.map": "/expense_tracker/static/css/2.9de3fc7f.chunk.css.map",
+    "static/css/main.47bc30d2.chunk.css.map": "/expense_tracker/static/css/main.47bc30d2.chunk.css.map",
+    "static/media/font-awesome.css": "/expense_tracker/static/media/fontawesome-webfont.fee66e71.woff"
   }
 }
