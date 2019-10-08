@@ -16,10 +16,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import PeopleIcon from '@material-ui/icons/People';
 import HouseIcon from '@material-ui/icons/House';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 import HouseHold from "./admin/household";
-import Mail from "./admin/mail";
+import Invite from "./admin/invite";
 import ManageUser from "./admin/manageUser";
+import Budget from "./admin/budget";
 
 const drawerWidth = 240
 const useStyles = makeStyles(theme => ({
@@ -66,8 +68,9 @@ const Admin = (pros) => {
 
     const data = [
         { name : "Manage User", icon : <PeopleIcon />, component: <ManageUser />},
+        { name : "Manage Budget", icon : <AccountBalanceWalletIcon />, component: <Budget />},
         { name : "Household Settings", icon : <HouseIcon />, component: <HouseHold /> },
-        { name : "Send Mail", icon : <MailIcon />, component: <Mail />}
+        { name : "Invite", icon : <MailIcon />, component: <Invite />}
     ];
   
     const handleDrawerOpen = () => {
