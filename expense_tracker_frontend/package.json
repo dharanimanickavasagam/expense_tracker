@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "author": "Dharani Manickavasagam",
+    "homepage": "https://dharanimanickavasagam.github.io/expense_tracker", 
     "dependencies": {
         "@material-ui/core": "^4.4.2",
         "@material-ui/icons": "^4.4.1",
@@ -37,7 +38,9 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "mock:api": "json-server --watch api/db.json --port 4000"
+        "mock:api": "json-server --watch api/db.json --port 4000",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "extends": "react-app"
