@@ -5,6 +5,7 @@ const income = require("../routes/income");
 const user = require("../routes/user");
 const admin = require("../routes/admin");
 const auth = require("../routes/auth");
+const budget = require("../routes/budget");
 
 const {
     error
@@ -19,6 +20,7 @@ module.exports = function (app) {
     app.use("/api/user", user);
     app.use("/api/admin", admin);
     app.use("/api/auth", auth);
+    app.use("/api/budget", budget);
     app.use(error);
 
 }
