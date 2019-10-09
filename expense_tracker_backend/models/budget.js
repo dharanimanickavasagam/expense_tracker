@@ -22,7 +22,7 @@ function validateBudget(budget) {
 
     const schema = { 
         _id: Joi.string(),
-        expenseType: Joi.string().required(),
+        expenseTypeid: Joi.string().required(),
         funds : Joi.number().required()
     }
    return Joi.validate(budget,schema);
