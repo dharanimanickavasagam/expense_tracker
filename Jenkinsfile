@@ -8,7 +8,6 @@ pipeline {
     stages {
         stage('Build') { 
             steps {
-                sh 'checkout scm'
                 sh 'npm install' 
             }
         }
