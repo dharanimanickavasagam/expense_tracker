@@ -51,7 +51,7 @@ class Budget extends Component {
       componentDidUpdate(prevProps, prevState) {
         
         const {data} = this.state;
-        console.log("prev",prevState.data , "Now", data)
+        //console.log("prev",prevState.data , "Now", data)
         // if(prevState.data !== data){
         //     getExpenseType();
         //     this.getTableData();
@@ -86,7 +86,10 @@ class Budget extends Component {
       }
 
       displayProgressBar = (barValue) => {
-        return <LinearProgress variant="determinate" value={barValue}/> 
+        console.log(barValue)
+         const progressBarColor = barValue < 100 ? "primary" : "secondary";
+         const progressBarValue = barValue < 100 ?  barValue : 100; 
+        return <LinearProgress variant="determinate" color={progressBarColor} value={progressBarValue}/> 
       }   
 
     render() { 
