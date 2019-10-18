@@ -49,15 +49,38 @@ class Budget extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { data } = this.state;
-    //console.log("prev",prevState.data , "Now", data)
-    // if(prevState.data !== data){
-    //     getExpenseType();
-    //     this.getTableData();
-    // }
+    const eliminatedData = data.map(datum =>
+      _.omit(datum, ["tableData", "progress", "value"])
+    );
+    const eliminatedprevState = prevState.data.map(state =>
+      _.omit(state, ["tableData", "progress", "value"])
+    );
+
+    if (!_.isEqual(eliminatedprevState, eliminatedData)) {
+      console.log("updating");
+      getExpenseType();
+      this.getTableData();
+    }
   }
 
   getTableData = async () => {
     const result = await getBudgetFunds();
+    this.getProgressBarData(result);
+  };
+
+  displayProgressBar = barValue => {
+    const progressBarColor = barValue < 100 ? "primary" : "secondary";
+    const progressBarValue = barValue < 100 ? barValue : 100;
+    return (
+      <LinearProgress
+        variant="determinate"
+        color={progressBarColor}
+        value={progressBarValue}
+      />
+    );
+  };
+
+  getProgressBarData = result => {
     let data = [];
     const progressCount = {};
     this.props.expense.forEach(expense => {
@@ -87,19 +110,6 @@ class Budget extends Component {
     this.setState({ data });
   };
 
-  displayProgressBar = barValue => {
-    console.log(barValue);
-    const progressBarColor = barValue < 100 ? "primary" : "secondary";
-    const progressBarValue = barValue < 100 ? barValue : 100;
-    return (
-      <LinearProgress
-        variant="determinate"
-        color={progressBarColor}
-        value={progressBarValue}
-      />
-    );
-  };
-
   render() {
     const { classes } = this.props;
 
@@ -125,20 +135,19 @@ class Budget extends Component {
             onRowUpdate: (newData, oldData) =>
               new Promise((resolve, reject) => {
                 setTimeout(() => {
-                  {
-                    const data = this.state.data;
-                    const index = data.indexOf(oldData);
-                    data[index] = newData;
-                    this.setState({ data }, () => resolve());
-                    const budget = _.omit(newData, [
-                      "expenseType",
-                      "tableData"
-                    ]);
-                    console.log(budget);
-                    updateBudgetFunds(budget);
-                  }
                   resolve();
-                }, 1000);
+                  const data = [...this.state.data];
+                  const res = _.indexOf(data, oldData);
+                  data[res] = _.omit(newData, "progress");
+                  this.setState({ data });
+                  const updateData = _.omit(newData, [
+                    "expenseType",
+                    "tableData",
+                    "progress",
+                    "value"
+                  ]);
+                  updateBudgetFunds(updateData);
+                }, 600);
               })
           }}
           options={{
