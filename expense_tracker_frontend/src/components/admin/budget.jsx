@@ -36,8 +36,7 @@ class Budget extends Component {
       {
         title: "Expense Type Id",
         field: "expenseTypeid",
-        editable: "never",
-        value: 89
+        editable: "never"
       },
       { title: "Budget Funds", field: "funds", type: "numeric" },
       {
@@ -88,7 +87,7 @@ class Budget extends Component {
 
   getTableData = async () => {
     const result = await getBudgetFunds();
-    this.getProgressBarData(result);
+    this.getMatchingData(result);
   };
 
   displayProgressBar = barValue => {
@@ -103,7 +102,7 @@ class Budget extends Component {
     );
   };
 
-  getProgressBarData = result => {
+  getMatchingData = result => {
     let data = [];
     const progressCount = {};
     this.props.expense.forEach(expense => {
@@ -172,14 +171,14 @@ class Budget extends Component {
                     "progress",
                     "value"
                   ]);
-                  const datum = {};
-                  datum["expenseType"] = {
-                    name: updateData["expenseType"],
-                    _id: updateData["expenseTypeid"]
+                  const datum = {
+                    expenseType: {
+                      name: updateData["expenseType"],
+                      _id: updateData["expenseTypeid"]
+                    },
+                    funds: updateData["funds"],
+                    _id: updateData["_id"]
                   };
-                  datum["funds"] = updateData["funds"];
-                  datum["_id"] = updateData["_id"];
-                  console.log(datum);
                   updateBudgetFunds(datum);
                 }, 600);
               })
