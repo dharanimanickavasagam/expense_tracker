@@ -5,6 +5,7 @@ import { getExpense } from "../../actions/expense";
 import MaterialTable from "material-table";
 import {
   getBudgetFunds,
+  addBudgetFunds,
   updateBudgetFunds
 } from "../../services/budgetFundService";
 import _ from "lodash";
@@ -19,6 +20,7 @@ const styles = theme => ({
     justifyContent: "center"
   }
 });
+
 class Budget extends Component {
   constructor(props) {
     super(props);
@@ -26,8 +28,17 @@ class Budget extends Component {
 
   state = {
     columns: [
-      { title: "Expense Type", field: "expenseType", editable: "never" },
-      { title: "Expense Type Id", field: "expenseTypeid", editable: "never" },
+      {
+        title: "Expense Type",
+        field: "expenseType",
+        lookup: {}
+      },
+      {
+        title: "Expense Type Id",
+        field: "expenseTypeid",
+        editable: "never",
+        value: 89
+      },
       { title: "Budget Funds", field: "funds", type: "numeric" },
       {
         title: "Progress",
@@ -44,10 +55,22 @@ class Budget extends Component {
   };
 
   componentDidMount() {
+    getExpenseType();
     this.getTableData();
   }
 
+  getLookUpType = () => {
+    if (this.props.expenseTypes) {
+      const expenseTypeName = this.props.expenseTypes.map(
+        expenseType => expenseType.name
+      );
+      return Object.assign({}, ...expenseTypeName.map(key => ({ [key]: key })));
+    }
+  };
+
   componentDidUpdate(prevProps, prevState) {
+    this.state.columns[0].lookup = this.getLookUpType();
+
     const { data } = this.state;
     const eliminatedData = data.map(datum =>
       _.omit(datum, ["tableData", "progress", "value"])
@@ -121,15 +144,19 @@ class Budget extends Component {
           data={this.state.data}
           editable={{
             onRowAdd: newData =>
-              new Promise((resolve, reject) => {
+              new Promise(resolve => {
                 setTimeout(() => {
-                  {
-                    const data = this.state.data;
-                    data.push(newData);
-                    this.setState({ data }, () => resolve());
-                  }
                   resolve();
-                }, 1000);
+                  const data = [...this.state.data];
+                  const newDatum = _.omit(newData, ["tableData"]);
+                  newDatum["expenseType"] = this.props.expenseTypes.find(
+                    expenseType => expenseType.name === newDatum.expenseType
+                  );
+                  data.push(newDatum);
+                  const addData = _.omit(newDatum, ["tableData"]);
+                  addBudgetFunds(addData);
+                  this.setState({ data });
+                }, 600);
               }),
 
             onRowUpdate: (newData, oldData) =>
@@ -141,12 +168,19 @@ class Budget extends Component {
                   data[res] = _.omit(newData, "progress");
                   this.setState({ data });
                   const updateData = _.omit(newData, [
-                    "expenseType",
                     "tableData",
                     "progress",
                     "value"
                   ]);
-                  updateBudgetFunds(updateData);
+                  const datum = {};
+                  datum["expenseType"] = {
+                    name: updateData["expenseType"],
+                    _id: updateData["expenseTypeid"]
+                  };
+                  datum["funds"] = updateData["funds"];
+                  datum["_id"] = updateData["_id"];
+                  console.log(datum);
+                  updateBudgetFunds(datum);
                 }, 600);
               })
           }}
@@ -164,7 +198,9 @@ class Budget extends Component {
 
 const mapStateToProps = state => {
   const expenseTypesState = state.expenseType.expenseTypes;
-  const expenseTypes = expenseTypesState.map(expenseType => expenseType.name);
+  const expenseTypes = expenseTypesState.map(expenseType =>
+    _.pick(expenseType, ["name", "_id"])
+  );
 
   return {
     expenseTypes: expenseTypes,
