@@ -1,32 +1,34 @@
 const mongoose = require("mongoose");
 const Joi = require("Joi");
-const {ExpenseType} = require("../models/expenseType")
+const {
+    ExpenseType
+} = require("../models/expenseType")
 
 //Step 1: Create mongoose schema 
 const budgetSchema = new mongoose.Schema({
-    expenseType : {
+    expenseType: {
         type: mongoose.Schema.Types.ObjectId,
         ref: ExpenseType
     },
-    funds : { 
-        type : Number,
-        required : true
+    funds: {
+        type: Number,
+        required: true
     }
 });
 
 //Step2 : create mongoose model 
-const Budget = mongoose.model("Budget",budgetSchema); 
+const Budget = mongoose.model("Budget", budgetSchema);
 
 //Step 3: define joi validation for the mongoose schema
-function validateBudget(budget) { 
+function validateBudget(budget) {
 
-    const schema = { 
+    const schema = {
         _id: Joi.string(),
-        expenseTypeid: Joi.string().required(),
-        funds : Joi.number().required()
+        expenseType: Joi.any(),
+        funds: Joi.number().required()
     }
-   return Joi.validate(budget,schema);
+    return Joi.validate(budget, schema);
 }
 
 module.exports.validateBudget = validateBudget;
-module.exports.Budget= Budget;
+module.exports.Budget = Budget;
