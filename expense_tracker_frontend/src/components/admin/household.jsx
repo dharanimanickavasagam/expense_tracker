@@ -30,7 +30,7 @@ class Household extends Component {
           labelId="demo-simple-select-placeholder-label-label"
           id="demo-simple-select-placeholder-label"
           onChange={this.handleCurrencyFormat}
-          value={this.state.selectedCurrency}
+          value={this.props.currencyFormat}
           displayEmpty
         >
           {this.state.currencyFormat.map(currencyFormat => (
@@ -43,6 +43,11 @@ class Household extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    currencyFormat: state.currencyFormat.currencyFormat
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -52,6 +57,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Household);
