@@ -4,6 +4,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import _ from "lodash";
+import { connect } from "react-redux";
+import { setCurrencyFormat } from "../../actions/currencyFormat";
 
 class Household extends Component {
   state = {
@@ -13,6 +15,7 @@ class Household extends Component {
 
   handleCurrencyFormat = event => {
     const selectedCurrency = event.target.value;
+    this.props.setCurrencyFormat(selectedCurrency);
     this.setState({ selectedCurrency });
   };
 
@@ -41,4 +44,14 @@ class Household extends Component {
   }
 }
 
-export default Household;
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrencyFormat: currencyFormat =>
+      dispatch(setCurrencyFormat(currencyFormat))
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Household);
