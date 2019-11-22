@@ -7,6 +7,7 @@ const admin = require("../routes/admin");
 const auth = require("../routes/auth");
 const budget = require("../routes/budget");
 const currencyFormat = require("../routes/currencyFormat");
+const household = require("../routes/household");
 
 const { error } = require("../middleware/error");
 
@@ -21,5 +22,6 @@ module.exports = function(app) {
   app.use("/api/auth", auth);
   app.use("/api/budget", budget);
   app.use("/api/currencyFormat", currencyFormat);
+  app.use("/api/household", household);
   app.use(error);
 };

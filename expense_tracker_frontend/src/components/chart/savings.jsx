@@ -35,8 +35,7 @@ const mapStateToProps = state => {
   }
 
   return {
-    totalSavings: income - expense,
-    currencyFormat: state.currencyFormat.currencyFormat
+    totalSavings: income - expense
   };
 };
 

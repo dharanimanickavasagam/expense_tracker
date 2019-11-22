@@ -34,8 +34,7 @@ const mapStateToProps = state => {
     total = expense.reduce((acc, inc) => acc + inc);
   }
   return {
-    totalExpense: total,
-    currencyFormat: state.currencyFormat.currencyFormat
+    totalExpense: total
   };
 };
 export default connect(mapStateToProps)(Expense);

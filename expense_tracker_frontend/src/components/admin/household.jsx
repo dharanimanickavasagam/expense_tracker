@@ -6,22 +6,40 @@ import Select from "@material-ui/core/Select";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { setCurrencyFormat } from "../../actions/currencyFormat";
+import { getCurrencyFormatService } from "../../services/currencyFormatService";
+import {
+  getSelectedCurrencyService,
+  changeSelectedCurrencyService
+} from "../../services/household";
 
 class Household extends Component {
   state = {
-    currencyFormat: [{ USD: "$" }, { AUD: "$" }, { INR: "₹" }, { Euro: "€" }],
+    currencyFormat: [],
     selectedCurrency: ""
   };
 
   handleCurrencyFormat = event => {
     const selectedCurrency = event.target.value;
+    // .match(/:(.*)/g)
+    // .pop()
+    // .replace(":", "");
+
+    changeSelectedCurrencyService({ currencyFormat: selectedCurrency });
     this.props.setCurrencyFormat(selectedCurrency);
     this.setState({ selectedCurrency });
   };
 
+  async componentDidMount() {
+    const res = await getCurrencyFormatService();
+    const currencyFormat = await res.map(datum => _.omit(datum, ["_id"]));
+
+    const selectedCurrency = await getSelectedCurrencyService();
+    this.setState({ currencyFormat, selectedCurrency });
+  }
+
   render() {
     return (
-      <FormControl fullWidth>
+      <FormControl>
         <InputLabel shrink id="demo-simple-select-placeholder-label-label">
           Currency Format
         </InputLabel>
@@ -30,12 +48,17 @@ class Household extends Component {
           labelId="demo-simple-select-placeholder-label-label"
           id="demo-simple-select-placeholder-label"
           onChange={this.handleCurrencyFormat}
-          value={this.props.currencyFormat}
-          displayEmpty
+          value={this.state.selectedCurrency}
         >
           {this.state.currencyFormat.map(currencyFormat => (
-            <MenuItem value={_.values(currencyFormat)[0]}>
-              {`${_.keys(currencyFormat)} : ${_.values(currencyFormat)}`}
+            <MenuItem
+              value={`${_.join(_.values(currencyFormat.name), "")}:${_.values(
+                currencyFormat.symbol
+              )}`}
+            >
+              {`${_.join(_.values(currencyFormat.name), "")}:${_.values(
+                currencyFormat.symbol
+              )}`}
             </MenuItem>
           ))}
         </Select>
@@ -51,8 +74,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCurrencyFormat: currencyFormat =>
-      dispatch(setCurrencyFormat(currencyFormat))
+    setCurrencyFormat: selectedCurrency =>
+      dispatch(setCurrencyFormat(selectedCurrency))
   };
 };
 

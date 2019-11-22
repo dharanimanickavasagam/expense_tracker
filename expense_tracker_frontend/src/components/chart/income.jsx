@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 
 class Income extends Component {
   state = {};
+
   render() {
     return (
       <>
@@ -34,8 +35,7 @@ const mapStateToProps = state => {
     total = income.reduce((acc, inc) => acc + inc);
   }
   return {
-    totalIncome: total,
-    currencyFormat: state.currencyFormat.currencyFormat
+    totalIncome: total
   };
 };
 
