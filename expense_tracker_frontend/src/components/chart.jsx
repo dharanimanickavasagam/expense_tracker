@@ -9,7 +9,7 @@ import Income from "./chart/income";
 import Savings from "./chart/savings";
 import Expense from "./chart/expense";
 import ExpenseMode from "./chart/expenseMode";
-import { connect } from "react-redux";
+
 import { getSelectedCurrencyService } from "../services/household";
 
 const useStyles = makeStyles(theme => ({
@@ -89,10 +89,4 @@ const Chart = () => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    currencyFormat: "W"
-  };
-};
-
-export default connect(mapStateToProps)(Chart);
+export default Chart;
