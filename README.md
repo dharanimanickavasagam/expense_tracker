@@ -1,8 +1,4 @@
-# expense_tracker
-This is an expense tracker under development. The tracker uses React with Redux, Material UI, Victory and backend in Node.js, Express, MongoDB and Mongoose.  MVP hosted @ https://dharanimanickavasagam.github.io/expense_tracker
 
-
-To Start
 
 #Front end : 
 yarn start 
