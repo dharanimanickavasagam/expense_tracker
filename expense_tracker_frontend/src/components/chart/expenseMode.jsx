@@ -17,7 +17,8 @@ const styles = theme => ({
 class ExpenseMode extends Component {
   state = {};
   render() {
-    const { classes } = this.props;
+    const { classes, currencyFormat } = this.props;
+
     return (
       <>
         <Typography component="h2" variant="h6" color="primary" gutterBottom>
@@ -26,14 +27,13 @@ class ExpenseMode extends Component {
 
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            Fixed : {this.props.currencyFormat} {this.props.totalFixedExpense}
+            Fixed : {currencyFormat} {this.props.totalFixedExpense}
           </Paper>
         </Grid>
 
         <Grid item xs={12}>
           <Paper className={classes.paper}>
-            Variable : {this.props.currencyFormat}{" "}
-            {this.props.totalVariableExpense}
+            Variable : {currencyFormat} {this.props.totalVariableExpense}
           </Paper>
         </Grid>
       </>
@@ -62,8 +62,7 @@ const mapStateToProps = state => {
   }
   return {
     totalVariableExpense: totalVariableExpense,
-    totalFixedExpense: totalFixedExpense,
-    currencyFormat: state.currencyFormat.currencyFormat
+    totalFixedExpense: totalFixedExpense
   };
 };
 
